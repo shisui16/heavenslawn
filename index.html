@@ -1,282 +1,372 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" >
 <head>
-
-  <!--  Meta  -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Portfolio Page</title>
-
+  <meta charset="UTF-8">
+  <title>Complex Networks</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
- 
-  <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Montserrat:300,600'>
-  <!--  Styles  -->
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-mfizz/2.4.1/font-mfizz.min.css" />
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-  <link rel="stylesheet" href="styles/index.processed.css">
-  
- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.2.2/css/flat-ui.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
+  <link rel="stylesheet" href="./style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+  <!-- Bootstrap CSS -->
+<link href="bootstrap.css" rel="stylesheet">
+
+<!-- Bootstrap JavaScript and dependencies (jQuery and Popper.js) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <style>
+      .modal-content {
+          border-radius: 20px;
+          padding: 20px;
+      }
+      .modal-header {
+          border-bottom: none;
+      }
+      .modal-body img {
+          display: block;
+          margin: 0 auto 20px;
+          border-radius: 50%;
+      }
+      .modal-body {
+          text-align: center;
+      }
+      .modal-footer {
+          border-top: none;
+          justify-content: center;
+      }
+  </style>
 </head>
-
 <body>
-  
-    <nav id="navbar-main" class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
-
-      <a class="navbar-brand" href="#"><strong>Physicist</strong></a>
-
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"  aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-      <div class="collapse navbar-collapse navbar-right" id="navbarNavDropdown">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#business-profile">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#contact">Contact</a>
-          </li>
-          
-        </ul>
-      </div>
-    </nav>
-    <!--
-
-    Wow! What do you want to build?
-
-    You have so many possibilities right now... Looking for something to kick off?
-    How about a simple folio page to show off everything you're going to make!
-   
-  -->
-
-    <!-- Scripts -->
-
-  
-
-  <div class="jumbotron jumbotron-fluid text-center">
-    <div class="container">
-      <h1 class="display-3">Sarthak Thorat</h1>
-      <p class="lead">Work you enjoy is worth doing.</p>
-      <hr class="my-4">
-      <p>Journey of a focused mind through a distracted world.</p>
-      <ul class="list-inline intro-social-buttons">
-        <li class="list-inline-item">
-          <a target='_blank' class="btn btn-social btn-linkedin btn-lg" href="https://www.linkedin.com/in/msimevski/" role="button">
-            <span class="fa fa-linkedin"></span> LinkedIn
-          </a>
-          <a target='_blank' class="btn btn-social btn-instagram btn-lg" href="https://www.linkedin.com/in/msimevski/" role="button">
-            <span class="fa fa-instagram"></span> Instagram Account
-          </a>
-          <a target='_blank' class="btn btn-social btn-linkedin btn-lg" href="https://www.linkedin.com/in/msimevski/" role="button">
-            <span class="fa fa-youtube"></span> Youtube Channel
-          </a>
-          <a target='_blank' class="btn btn-social btn-linkedin btn-lg" href="https://www.twitter.com/in/msimevski/" role="button">
-            <span class="fa fa-twitter"></span> Twitter Handle
-          </a>
-
-        </li>
-        <li class="list-inline-item">
-          <a target='_blank' class="btn btn-social btn-github btn-lg" href="https://github.com/smihajlo" role="button"><span class="fa fa-github"></span>GitHub</a>
-        </li>
+  <div class="burger">
+    <span></span>
+  </div>
+  <section class="navbar navbar-inverse navbar-fixed-top transparent col-md-8" style = 'margin-bottom: 3vh; padding-top: 0vh; pad'>
+        <div class="navbar-header">
+            <a class="navbar-brand" href="index.html" target="newwindow" style="margin-right:-1.5rem;"><img src = "logo.png" style="height:12.5vh;"></a><span style="position: relative; ">Complex Networks Dynamics Lab</span>
+        </div>
        
+  </section>
+  <nav>
+    <ul class="main">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="alumni.html">Alumni</a></li>
+      <li><a href="awards.html">Awards</a></li>
+      <li><a href="funding.html">Fundings</a></li>
+      <li><a href="publications.html">Publications<span></span></a></li>
+    </ul>
+    
+    <div class="about">
+      <p>welcome to the menu</menu></menu></p>
     </div>
-  </div>
-  <div class="container-fluid brand-color text-light" data-spy="scroll" data-target="#navbar-main" data-offset="0">
-    <div class="row">
-      <div class="col text-center p-3">
-        <h2 id="business-profile" class="text-center text-uppercase p-3 font-weight-bold">Business Profile</h2>
-      </div>
+    
+    <div class="social">
+      <a href="#0" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="64px" height="64px" viewBox="0 0 64 64"><g transform="translate(0, 0)"><path d="M64,12.2c-2.4,1-4.9,1.8-7.5,2.1c2.7-1.6,4.8-4.2,5.8-7.3c-2.5,1.5-5.3,2.6-8.3,3.2C51.5,7.6,48.1,6,44.3,6 c-7.3,0-13.1,5.9-13.1,13.1c0,1,0.1,2,0.3,3C20.6,21.6,10.9,16.3,4.5,8.4c-1.1,1.9-1.8,4.2-1.8,6.6c0,4.6,2.3,8.6,5.8,10.9 c-2.2-0.1-4.2-0.7-5.9-1.6c0,0.1,0,0.1,0,0.2c0,6.4,4.5,11.7,10.5,12.9c-1.1,0.3-2.3,0.5-3.5,0.5c-0.8,0-1.7-0.1-2.5-0.2 c1.7,5.2,6.5,9,12.3,9.1c-4.5,3.5-10.2,5.6-16.3,5.6c-1.1,0-2.1-0.1-3.1-0.2C5.8,55.8,12.7,58,20.1,58c24.2,0,37.4-20,37.4-37.4 c0-0.6,0-1.1,0-1.7C60,17.1,62.2,14.8,64,12.2z"></path></g></svg></a>
+      <a href="#0" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="64px" height="64px" viewBox="0 0 64 64"><g transform="translate(0, 0)"><path d="M32,5.766c8.544,0,9.556,0.033,12.931,0.187c3.642,0.166,7.021,0.895,9.621,3.496 c2.6,2.6,3.329,5.979,3.496,9.621c0.154,3.374,0.187,4.386,0.187,12.931s-0.033,9.556-0.187,12.931 c-0.166,3.642-0.895,7.021-3.496,9.621c-2.6,2.6-5.98,3.329-9.621,3.496c-3.374,0.154-4.386,0.187-12.931,0.187 s-9.557-0.033-12.931-0.187c-3.642-0.166-7.021-0.895-9.621-3.496c-2.6-2.6-3.329-5.979-3.496-9.621 C5.798,41.556,5.766,40.544,5.766,32s0.033-9.556,0.187-12.931c0.166-3.642,0.895-7.021,3.496-9.621 c2.6-2.6,5.979-3.329,9.621-3.496C22.444,5.798,23.456,5.766,32,5.766 M32,0c-8.691,0-9.78,0.037-13.194,0.193 c-5.2,0.237-9.768,1.511-13.436,5.178C1.705,9.037,0.43,13.604,0.193,18.806C0.037,22.22,0,23.309,0,32 c0,8.691,0.037,9.78,0.193,13.194c0.237,5.2,1.511,9.768,5.178,13.436c3.666,3.666,8.234,4.941,13.436,5.178 C22.22,63.963,23.309,64,32,64s9.78-0.037,13.194-0.193c5.199-0.237,9.768-1.511,13.436-5.178c3.666-3.666,4.941-8.234,5.178-13.436 C63.963,41.78,64,40.691,64,32s-0.037-9.78-0.193-13.194c-0.237-5.2-1.511-9.768-5.178-13.436 c-3.666-3.666-8.234-4.941-13.436-5.178C41.78,0.037,40.691,0,32,0L32,0z"></path> <path data-color="color-2" d="M32,15.568c-9.075,0-16.432,7.357-16.432,16.432c0,9.075,7.357,16.432,16.432,16.432 S48.432,41.075,48.432,32C48.432,22.925,41.075,15.568,32,15.568z M32,42.667c-5.891,0-10.667-4.776-10.667-10.667 c0-5.891,4.776-10.667,10.667-10.667c5.891,0,10.667,4.776,10.667,10.667C42.667,37.891,37.891,42.667,32,42.667z"></path> <circle data-color="color-2" cx="49.082" cy="14.918" r="3.84"></circle></g></svg></a>
     </div>
-    <div class="row">
-      <div class="col text-center p-3">
+    
+   <!-- <ul class="sub">
+      <li><a href="#0">FAQ &amp; Shipping</a></li>
+      <li><a href="#0">Terms &amp; Conditions</a></li>
+    </ul>-->
+  </nav>
+  
+  <div class="overlay"></div>
+<main data-spy="scroll" data-target=".navbar" data-offset="50">
+  <div class="jumbotron photo-cover text-inverse">
+      <div class="col-md-6 text-center center">
+        <h2>Complex Networks </h2>
+        <p >Dr. Chandrakala Meena</p>
+        <a href="#about">
+        <span class="fui-triangle-down large"></span>
+        </a>
+      </div> <!-- .col-md-6 -->
+    </div> <!-- .jumbotron -->
+<div id="about" class="jumbotron1">
+    <div class="container">
+      <div class="row ">
+        <div class=" col-md-12 col-md-offset-2 text-center text-align ">
+        <h2>About</h2>
+          <hr>
+        <p class="lead">
+        This is a trial site
+      </p>
+        <p>
+          
+          
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris suscipit vulputate nulla. Ut lectus turpis, malesuada at eros et, auctor sodales neque. Nullam a pulvinar nisl. Integer a nisl orci. Maecenas vitae nibh venenatis, dapibus metus sed, tempus lectus. Nulla gravida rutrum lectus in commodo. Mauris vehicula nisi lacus, eu sodales mi convallis nec. Sed quis efficitur risus. Nunc fermentum ac massa eget eleifend. Praesent malesuada diam sapien, eu fringilla lacus luctus nec. Etiam consequat tristique justo id maximus.
 
-        <a href="#"><img src="https://s17.postimg.org/h7777zqxb/12748092_10208548074400331_1655261928845771002_o_1.jpg" width="200" class="rounded-circle img-fluid img-thumbnail" alt="image"></a>
-
-
-        <h6 class="text-center p-3 text-uppercase font-weight-bold">Physicist</h6>
-
-
-      </div>
-
-
-      <div class="tab_container p-3">
-
-        <input id="tab1" type="radio" name="tabs" checked>
-        <label for="tab1"><i class="fa fa-pencil-square-o"></i><span>About</span></label>
-
-        <input id="tab2" type="radio" name="tabs">
-        <label for="tab2"><i class="fa fa-folder-open-o"></i><span>What I do</span></label>
-
-
-        <input id="tab3" type="radio" name="tabs">
-        <label for="tab3"><i class="fa fa-book"></i><span>Reading list</span></label>
-
+Nullam ultrices et nulla eu facilisis. Maecenas quis tellus elementum, laoreet est ut, auctor ligula. Morbi tempus diam ac ante tincidunt accumsan. Quisque in diam mauris. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur et leo eget diam porttitor tincidunt vitae vitae odio. Praesent ullamcorper arcu libero, in tempus elit finibus id. Suspendisse porttitor nibh feugiat ultrices rutrum. Suspendisse pellentesque vestibulum orci, sit amet aliquam dolor interdum ut. Donec tristique condimentum ex molestie volutpat. Donec pulvinar dolor et odio fringilla varius non et lacus.
+</p>
         
+        </div> <!-- .col-md-8 -->
+      </div> <!-- .row -->
+    </div> <!-- .container -->
+</div> <!-- #about -->
 
-        <section id="content1" class="tab-content">
-          <h3 class="p-3 display-4 text-dark" style="line-height:1;">- I am Sarthak Thorat,<small class="text-muted"> a <br /> Mathematical Physicist &<br /> Freelancer</small></h3>
-          <p class="text-dark text-center text-justify">I am a person interested in the study of all kinds of things. </p>
-          <p class="text-dark text-center text-justify">I'm available for remote work - if you would like to build something together, get in touch?(link to contact)</p>
-        </section>
 
-        <section id="content2" class="tab-content">
-          <h3 class="p-3 display-4 text-dark" style="line-height:1;">Skills</h3>
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col text-center p-3">
-                <dl>
-                  <dt>Front-End</dt>
-                  <dd>
-                    HTML5, CSS3, JavaScript.
-                  </dd>
-                </dl>
-              </div>
-              <div class="col text-center p-3">
-                <dl>
-                  <dt>Data Analysis</dt>
-                  <dd>
-                    Python
-                  </dd>
-                </dl>
-              </div>
-              <div class="col text-center p-3">
-                <dl>
-                  <dt>E-Commerce</dt>
-                  <dd>
-                    WooCommerce
-                  </dd>
-                </dl>
-              </div>
-              <div class="col text-center p-3">
-                <dl>
-                  <dt>UI & UX</dt>
-                  <dd>
-                    Adobe Photoshop, Adobe Illustrator
-                  </dd>
-              </div>
-              <div class="col text-center p-3">
-                </dl>
-                <dl>
-                  <dt>Mobile</dt>
-                  <dd>
-                    NativeScript
-                  </dd>
-                </dl>
-              </div>
-            </div>
-          </div>
-        </section>
+<div id="about" class="jumbotron2">
+  <div class="container">
+    <div class="row ">
+      <div class=" col-md-12 col-md-offset-2 text-center text-align ">
+      Dr Chandrakala Meena
 
-        <section id="content3" class="tab-content">
-          <h3 class="p-3 display-4 text-dark" style="line-height:1;">"Let us read and let us dance"
-            </h3>
-          <ul class="links list-inline">
-            <li class="list-inline-item p-3"><a href="https://www.goodreads.com/book/show/10803540-algorithms" target="_blank">Algorithms</a><br><span class="author"><!-- react-text: 113 -->by <!-- /react-text --><!-- react-text: 114 -->	
-Sedgewick, Robert<!-- /react-text --></span></li>
-            <li class="list-inline-item p-3"><a href="https://www.goodreads.com/book/show/10896369-head-first-html5-programming" target="_blank">Head First HTML5 Programming</a><br><span class="author"><!-- react-text: 101 -->by <!-- /react-text --><!-- react-text: 102 -->Freeman, Eric<!-- /react-text --></span></li>
-            <li class="list-inline-item p-3"><a href="https://www.goodreads.com/book/show/135437.Professional_JavaScript_for_Web_Developers" target="_blank">Professional JavaScript for Web Developers</a><br><span class="author"><!-- react-text: 89 -->by <!-- /react-text --><!-- react-text: 90 -->Zakas, Nicholas C.<!-- /react-text --></span></li>
-            <li class="list-inline-item p-3"><a href="https://www.goodreads.com/book/show/3735293-clean-code" target="_blank">Clean Code: A Handbook of Agile Software Craftsmanship</a><br><span class="author"><!-- react-text: 95 -->by <!-- /react-text --><!-- react-text: 96 -->Martin, Robert C.<!-- /react-text --></span></li>
-            
-            <li class="list-inline-item p-3"><a href="https://www.goodreads.com/book/show/25744928-deep-work" target="_blank">Deep Work: Rules for Focused Success in a Distracted World</a><br><span class="author"><!-- react-text: 107 -->by <!-- /react-text --><!-- react-text: 108 -->Newport, Cal<!-- /react-text --></span></li>
-            <li class="list-inline-item p-3"><a href="https://www.goodreads.com/book/show/11987.The_Myth_of_Sisyphus_and_Other_Essays" target="_blank">The Myth of Sisyphus and Other Essays</a><br><span class="author"><!-- react-text: 107 -->by <!-- /react-text --><!-- react-text: 108 -->Camus, Albert<!-- /react-text --></span></li>
-            </ul>
-        </section>
+         
+          <img alt="Anita Simmons" class = "profile img" src="Unknown_person.jpg\"  style="width:30vw; "/>
 
+              <h2 class="profile__name">Assistant Professor Grade 1</h2>
+              <p>lorem ipsum</p>
+            </a>
         
+        <h2>Lab Group</h2>
+        <hr>
 
-      </div>
-    </div>
-
-  </div>
-
-  <div class="container-fluid jumbotron jumbotron-fluid">
-    <h2 class="text-center p-3 text-uppercase font-weight-bold">Portfolio Projects</h2>
-    <div class="text-center p-3">
-      <button class="btn btn-secondary filter-button" data-filter="all">All</button>
-      <button class="btn btn-secondary filter-button" data-filter="html5"><i class="fa fa-html5" aria-hidden="true"></i> HTML 5</button>
-      <button class="btn btn-secondary filter-button" data-filter="css3"><i class="fa fa-css3" aria-hidden="true"></i> CSS3</button>
-      <button class="btn btn-secondary filter-button" data-filter="javascript"><i class="icon-javascript-alt"></i> JavaScript</button>
-      <button class="btn btn-secondary filter-button" data-filter="irrigation"><i class="fa fa-git" aria-hidden="true"></i> Git</button>
-    </div>
-
-    <div class="card-deck p-3 gallery">
-      <div class="card col-lg-4 col-md-4 col-sm-4 col-xs-6 gallery_product filter html5">
-        <img class="card-img-top" src="..." alt="Card image cap">
-        <div class="card-body">
-          <h4 class="card-title">Design</h4>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </div>
-
-      </div>
-      <div class="card col-lg-4 col-md-4 col-sm-4 col-xs-6 gallery_product filter html5">
-        <img class="card-img-top" src="..." alt="Card image cap">
-        <div class="card-body">
-          <h4 class="card-title">Web Development</h4>
-          <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </div>
-      </div>
-      <div class="card col-lg-4 col-md-4 col-sm-4 col-xs-6 gallery_product filter css3">
-        <img class="card-img-top" src="..." alt="Card image cap">
-        <div class="card-body">
-          <h4 class="card-title">Writing</h4>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </div>
-      </div>
-    </div>
-
-
-  </div>
-    <div class="container-fluid" data-spy="scroll" data-target="#navbar-main" data-offset="0" id="contact">
-     <div id='wrapper'>
-       <h2 class="text-center p-3 text-uppercase font-weight-bold">Let's work together</h2>
-  <form action='' class='form'>
-    <p class='field required half'>
-      <label class='label required' for='name'>Name</label>
-      <input class='text-input' id='name' name='name' required type='text'>
-    </p>
-    <p class='field required half'>
-      <label class='label' for='email'>E-mail</label>
-      <input class='text-input' id='email' name='email' required type='email'>
-    </p>
-    <p class='field'>
-      <label class='label' for='message'>Describe how you imagine your new website</label>
-      <textarea class='textarea' cols='50' id='message' name='message' required rows='4'></textarea>
-    </p>
-    <p class='field required half m-top'>
-      <label class='label budget' for='budget'>Budget</label>
+        <div class="team">
+          <ul class="auto-grid" role="list">
+            <li>
+              <a href="https://swop.link/cool" target=_blank" class="profile">
+                <h2 class="profile__name">Person 1</h2>
+                <p>PhD</p>
+                <img alt="Anita Simmons" class = "profile img" src="Unknown_person.jpg\" />
+              </a>
+            </li>
+            <li>
+              <a href="https://swop.link/cool" target=_blank" class="profile">
+                <h2 class="profile__name">Person 2</h2>
+                <p>Masters Thesis</p>
+                <img alt="Profile shot for Celina Harris" src="Unknown_person.jpg" />
+              </a>
+            </li>
+            <li>
+              <a href="https://swop.link/cool" target=_blank" class="profile">
+                <h2 class="profile__name">Person 3</h2>
+                <p>Master's student</p>
+                <img alt="Profile shot for Ruby Morris" src="Unknown_person.jpg" />
+              </a>
+            </li>
+            <li>
+              <a href="https://swop.link/cool" target=_blank" class="profile">
+                <h2 class="profile__name">Person 3</h2>
+                <p>Master's student</p>
+                <img alt="Profile shot for Ruby Morris" src="Unknown_person.jpg" />
+              </a>
+            </li>
+           
+          </ul>
       
-      <input class='text-input' id='budget' name='budget' required type='number' placeholder="€500" step="100" min="100">
-    </p>
-    <p class='field'>
-      <input class='button' type='submit' value='Send message'>
-    </p>
-  </form>
+      </div> <!-- .col-md-8 -->
+    </div> <!-- .row -->
+  </div> <!-- .container -->
 </div>
-    </div>
+
+<div id="about" class="jumbotron3">
+  <div class="container">
+    <div class="row ">
+      <div class=" col-md-12 col-md-offset-2 text-center text-align ">
+      <h2>About</h2>
+        <hr>
+      <p class="lead">
+      This is a trial site
+    </p>
+      <p>
+        
+        
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris suscipit vulputate nulla. Ut lectus turpis, malesuada at eros et, auctor sodales neque. Nullam a pulvinar nisl. Integer a nisl orci. Maecenas vitae nibh venenatis, dapibus metus sed, tempus lectus. Nulla gravida rutrum lectus in commodo. Mauris vehicula nisi lacus, eu sodales mi convallis nec. Sed quis efficitur risus. Nunc fermentum ac massa eget eleifend. Praesent malesuada diam sapien, eu fringilla lacus luctus nec. Etiam consequat tristique justo id maximus.
+
+Nullam ultrices et nulla eu facilisis. Maecenas quis tellus elementum, laoreet est ut, auctor ligula. Morbi tempus diam ac ante tincidunt accumsan. Quisque in diam mauris. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur et leo eget diam porttitor tincidunt vitae vitae odio. Praesent ullamcorper arcu libero, in tempus elit finibus id. Suspendisse porttitor nibh feugiat ultrices rutrum. Suspendisse pellentesque vestibulum orci, sit amet aliquam dolor interdum ut. Donec tristique condimentum ex molestie volutpat. Donec pulvinar dolor et odio fringilla varius non et lacus.
+</p>
+      
+      </div> <!-- .col-md-8 -->
+    </div> <!-- .row -->
+  </div> <!-- .container -->
+</div>
+
+  <!--<div id="portfolio" class="jumbotron background-primary text-inverse">
+    <div class="container">
+      <div class="row">
+        <h2 class="text-center">Portfolio</h2>
+        <hr>
+        <div class="col-xs-6 col-md-3">
+          <a class="thumbnail" page="avoriaz">
+             <svg aria-hidden="true" class="thumbnail-svg" data-prefix="fas" data-icon="vial" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512" class="svg-inline--fa fa-vial fa-w-15 fa-3x"><path fill="currentColor" d="M477.7 186.1L309.5 18.3c-3.1-3.1-8.2-3.1-11.3 0l-34 33.9c-3.1 3.1-3.1 8.2 0 11.3l11.2 11.1L33 316.5c-38.8 38.7-45.1 102-9.4 143.5 20.6 24 49.5 36 78.4 35.9 26.4 0 52.8-10 72.9-30.1l246.3-245.7 11.2 11.1c3.1 3.1 8.2 3.1 11.3 0l34-33.9c3.1-3 3.1-8.1 0-11.2zM318 256H161l148-147.7 78.5 78.3L318 256z" class=""></path></svg>
+              <div class="thumbnail-overlay" page="avoriaz">
+                <span class="glyphicon glyphicon-info-sign text-inverse large center"></span>
+              </div>
+          </a>
+        </div> <!-- .col-md-3 
+        <div class="col-xs-6 col-md-3">
+          <a class="thumbnail" page="vue-test-utils">
+            <svg aria-hidden="true" class="thumbnail-svg" data-prefix="fab" data-icon="vuejs" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-vuejs fa-w-14 fa-3x"><path fill="currentColor" d="M356.9 64.3H280l-56 88.6-48-88.6H0L224 448 448 64.3h-91.1zm-301.2 32h53.8L224 294.5 338.4 96.3h53.8L224 384.5 55.7 96.3z" class=""></path></svg>
+            <div class="thumbnail-overlay" page="vue-test-utils">
+              <span class="glyphicon glyphicon-info-sign text-inverse large center"></span>
+            </div>
+          </a>
+        </div> <!-- .col-md-3 
+        <div class="col-xs-6 col-md-3">
+          <a class="thumbnail" page="book">
+            <svg aria-hidden="true" class="thumbnail-svg" data-prefix="fas" data-icon="book" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-book fa-w-14 fa-3x"><path fill="currentColor" d="M448 360V24c0-13.3-10.7-24-24-24H96C43 0 0 43 0 96v320c0 53 43 96 96 96h328c13.3 0 24-10.7 24-24v-16c0-7.5-3.5-14.3-8.9-18.7-4.2-15.4-4.2-59.3 0-74.7 5.4-4.3 8.9-11.1 8.9-18.6zM128 134c0-3.3 2.7-6 6-6h212c3.3 0 6 2.7 6 6v20c0 3.3-2.7 6-6 6H134c-3.3 0-6-2.7-6-6v-20zm0 64c0-3.3 2.7-6 6-6h212c3.3 0 6 2.7 6 6v20c0 3.3-2.7 6-6 6H134c-3.3 0-6-2.7-6-6v-20zm253.4 250H96c-17.7 0-32-14.3-32-32 0-17.6 14.4-32 32-32h285.4c-1.9 17.1-1.9 46.9 0 64z" class=""></path></svg>
+            <div class="thumbnail-overlay" page="book">
+              <span class="glyphicon glyphicon-info-sign text-inverse large center"></span>
+            </div>            
+          </a>
+        </div> <!-- .col-md-3 
+        <div class="col-xs-6 col-md-3">
+          <a class="thumbnail" page="blog">
+            <svg class="thumbnail-svg" aria-hidden="true" data-prefix="fas" data-icon="rss" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-rss fa-w-14 fa-3x"><path fill="currentColor" d="M128.081 415.959c0 35.369-28.672 64.041-64.041 64.041S0 451.328 0 415.959s28.672-64.041 64.041-64.041 64.04 28.673 64.04 64.041zm175.66 47.25c-8.354-154.6-132.185-278.587-286.95-286.95C7.656 175.765 0 183.105 0 192.253v48.069c0 8.415 6.49 15.472 14.887 16.018 111.832 7.284 201.473 96.702 208.772 208.772.547 8.397 7.604 14.887 16.018 14.887h48.069c9.149.001 16.489-7.655 15.995-16.79zm144.249.288C439.596 229.677 251.465 40.445 16.503 32.01 7.473 31.686 0 38.981 0 48.016v48.068c0 8.625 6.835 15.645 15.453 15.999 191.179 7.839 344.627 161.316 352.465 352.465.353 8.618 7.373 15.453 15.999 15.453h48.068c9.034-.001 16.329-7.474 16.005-16.504z" class=""></path></svg>
+            <div class="thumbnail-overlay" page="blog">
+              <span class="glyphicon glyphicon-info-sign text-inverse large center"></span>
+            </div>            
+          </a>
+        </div> <!-- .col-md-3        
+      </div> <!-- .row 
+    </div> <!-- .container 
+  </div> <!-- #portfolio -->
+  <!--<div id="contact" class="jumbotron">
+    <div class="container">
+      <div class="col-md-8 col-md-offset-2 text-center">
+        <h2 class="">Get In Touch</h2>
+        <hr>
+        <form action="mailto:edward.yerburgh@gmail.com"  enctype="text/plain" method="post">
+        <div class="form-group">
+          <label for="InputEmail">Email address</label>
+          <input type="email" class="form-control" id="InputEmail" placeholder="Email">
+        </div> <!-- .form-group -->
+      <!--  <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" class="form-control" rows="3"></textarea>
+        </div> <!-- .form-group -->
+    <!-- <input type="submit" name="submit" class="btn btn-inverse">
+      </form>
+      </div> <!-- .col-md-8 -->
+   <!-- </div> <!-- .container -->
+  <!--</div> <!-- #contact -->
+
+<div class="text-center text-inverse navbar-inverse" style="background-color: #7e69b0c6;">
+    <div class="container">
+      <div class="row">
+        <div class="footer-col col-md-4">
+            <h3>IISER Thiruvananthapuram</h3>
+                <p>Kerala</p>
+        </div> <!-- .footer-col -->
+        <div class="footer-col col-md-4">
+            <h3>Contact- </h3>
+            <ul class="list-inline">
+              <li>
+                   <a class="small" href="#" target="newwindow"><span class="fui-gmail"></span></a>
+              </li>
+              <li>
+                  <a class="small" href="#" target="newwindow"><span class="fui-linkedin"></span></a>
+              </li>
+              <li>
+                  <a class="small" href="#" target="newwindow"><span class="fui-twitter"></span></a></a>
+              </li>
+            </ul>
+        </div> <!-- .footer-col -->
+        <div class="footer-col col-md-4">
+            <h3>Group name</h3>
+            <p>description</p>
+        </div> <!-- .footer-col -->
+      </div> <!-- .row -->
+    </div> <!-- .container --> 
+    <div class="background-secondary">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12" style = "font-size: small;">
+             Made by Sarthak Thorat, 2024
+          </div> <!-- .col-lg-12 -->
+        </div> <!-- .row -->
+      </div> <!-- .container  -->
+    </div> <!-- .background-secondary -->
+  </div> <!--  -->
+<div id="avoriaz" class="full-screen">
+  <div class="container">
+      <div class="col-md-6 text-center center">
+      <div class="row">
+      </div> <!-- .row -->           
+        <p class="lead">avoriaz is Vue testing utility library.</p>
+      <hr>
+      <div class="row">
+        <div class="col-md-3 col-md-offset-3">
+          <a class="btn-inverse btn-block btn-lg" target="_blank" href="https://github.com/eddyerburgh/avoriaz">View</a>
+        </div> <!-- .col-md-6 -->
+        <div class="col-md-3">
+          <a class="btn-danger btn-lg close-window btn-block">Close</a>
+        </div> <!-- .col-md-6 -->        
+      </div> <!-- .row -->      
+    </div> <!-- .col-md-6 -->
+  </div> <!-- .container -->
+</div> <!-- .full-screen -->
+<div id="vue-test-utils" class="full-screen">
+  <div class="container">
+    <div class="col-md-6 text-center center">
+      <div class="row">
+      </div> <!-- .row -->       
+      <p class="lead">
+        The official Vue testing library.
+      </p>
+      <p>
+        I'm the lead author and maintainer of Vue Test Utils.
+      </p>
+      <hr>
+      <div class="row">
+        <div class="col-md-3 col-md-offset-3">
+          <a class="btn-inverse btn-block btn-lg" target="newwindow" href="https://github.com/vuejs/vue-test-utils">View</a>
+        </div> <!-- .col-md-6 -->
+        <div class="col-md-3">
+          <a class="btn-danger btn-lg close-window btn-block">Close</a>
+        </div> <!-- .col-md-6 -->        
+      </div> <!-- .row -->      
+    </div> <!-- .col-md-6 -->
+  </div> <!-- .container -->
+</div> <!-- .full-screen -->
+<div id="book" class="full-screen">
+  <div class="container">
+    <div class="col-md-6 text-center center">
+      <div class="row">
+      </div> <!-- .row -->          
+      <p class="lead">Testing Vue.js Applications</p>
+      <p>
+       Learn how to test Vue.js applications with my book.</p>
+      <hr>
+      <div class="row">
+        <div class="col-md-3 col-md-offset-3">
+          <a class="btn-inverse btn-block btn-lg" target="_blank" href="https://www.manning.com/books/testing-vue-js-applications">View</a>
+        </div> <!-- .col-md-6 -->
+        <div class="col-md-3">
+          <a class="btn-danger btn-lg close-window btn-block">Close</a>
+        </div> <!-- .col-md-6 -->        
+      </div> <!-- .row -->
+    </div> <!-- .col-md-6 -->
+  </div> <!-- .container -->
+</div> <!-- .full-screen -->
+<div id="blog" class="full-screen">
+  <div class="container">
+    <div class="col-md-6 text-center center">
+      <div class="row">
+      </div> <!-- .row -->
+      <p class="lead">
+        My personal blog
+      </p>
+      <hr>
+      <div class="row">
+        <div class="col-md-3 col-md-offset-3">
+          <a class="btn-inverse btn-block btn-lg" target="_blank" href="https://eddyerburgh.me/">View</a>
+        </div> <!-- .col-md-6 -->
+        <div class="col-md-3">
+          <a class="btn-danger btn-lg close-window btn-block">Close</a>
+        </div> <!-- .col-md-6 -->        
+      </div> <!-- .row -->
+    </div> <!-- .col-md-6 -->
+  </div> <!-- .container -->
+</div> <!-- .full-screen -->
+</main>
+<!-- partial -->
+  <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
+<script src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script><script  src="./script.js"></script>
+
 </body>
-  
-  
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="scripts/gallery.js"></script>
-<script src="scripts/form.js"></script>
-
-<script src="scripts/index.js"></script>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-
 </html>
