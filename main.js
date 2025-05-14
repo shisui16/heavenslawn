@@ -130,3 +130,48 @@ for(let i = 0; i < navigationLinks.length; i++) {
         }
     });
 }
+
+'use strict';
+
+// Function to open the modal
+const openModal = function(modalId) {
+    const modalContainer = document.getElementById(modalId);
+    modalContainer.classList.add('active');
+    const overlay = modalContainer.querySelector('[data-overlay]');
+    overlay.classList.add('active');
+};
+
+// Function to close the modal
+const closeModal = function(modalContainer) {
+    modalContainer.classList.remove('active');
+    const overlay = modalContainer.querySelector('[data-overlay]');
+    overlay.classList.remove('active');
+};
+
+// Event listeners for project items
+const projectLinks = document.querySelectorAll('.project-link');
+projectLinks.forEach(link => {
+    link.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent default anchor behavior
+        const modalId = this.getAttribute('data-modal-trigger');
+        openModal(modalId);
+    });
+});
+
+// Event listener for closing the modal
+const modalCloseBtns = document.querySelectorAll('[data-modal-close-btn]');
+modalCloseBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+        const modalContainer = this.closest('.modal-container');
+        closeModal(modalContainer);
+    });
+});
+
+// Event listener for overlay click to close modal
+const overlays = document.querySelectorAll('[data-overlay]');
+overlays.forEach(overlay => {
+    overlay.addEventListener('click', function() {
+        const modalContainer = this.closest('.modal-container');
+        closeModal(modalContainer);
+    });
+});

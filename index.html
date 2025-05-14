@@ -422,21 +422,16 @@
                     </div>
 
                     <ul class="project-list">
-                        <li class="project-item active" data-filter-item data-category="web development">
-                            <a href="#">
-                                <figure class="project-img">
-                                    <div class="project-item-icon-box">
-                                        <ion-icon name="eye-outline"></ion-icon>
-                                    </div>
-
-                                    <img src="https://i.postimg.cc/qRHpHMyd/project-1.jpg" alt="finance" loading="lazy">
-                                </figure>
-
-                                <h3 class="project-title">Finance</h3>
-                                <p class="project-category">Web Development</p>
-                            </a>
-                        </li>
-
+          <li class="project-item active" data-filter-item data-category="web development">
+                <a href="#" class="project-link" data-modal-trigger="project1-modal">
+                    <figure class="project-img">
+                        <img src="https://i.postimg.cc/qRHpHMyd/project-1.jpg" alt="Finance Project" loading="lazy">
+                    </figure>
+                    <h3 class="project-title">Finance</h3>
+                    <p class="project-category">Web Development</p>
+                </a>
+            </li>
+       
                         <li class="project-item active" data-filter-item data-category="web development">
                             <a href="#">
                                 <figure class="project-img">
@@ -452,20 +447,15 @@
                             </a>
                         </li>
 
-                        <li class="project-item active" data-filter-item data-category="web design">
-                            <a href="#">
-                                <figure class="project-img">
-                                    <div class="project-item-icon-box">
-                                        <ion-icon name="eye-outline"></ion-icon>
-                                    </div>
-
-                                    <img src="https://i.postimg.cc/jSJVqYsq/project-3.jpg" alt="fundo" loading="lazy">
-                                </figure>
-
-                                <h3 class="project-title">Fundo</h3>
-                                <p class="project-category">Web Design</p>
-                            </a>
-                        </li>
+                        <li class="project-item active" data-filter-item data-category="web development">
+                <a href="#" class="project-link" data-modal-trigger="project1">
+                    <figure class="project-img">
+                        <img src="https://i.postimg.cc/qRHpHMyd/project-1.jpg" alt="finance" loading="lazy">
+                    </figure>
+                    <h3 class="project-title">Finance</h3>
+                    <p class="project-category">Web Development</p>
+                </a>
+            </li>
 
                         <li class="project-item active" data-filter-item data-category="applications">
                             <a href="#">
@@ -557,8 +547,28 @@
                             </a>
                         </li>
                     </ul>
+
+                    
                 </section>
-            </article>
+
+     <div class="modal-container" id="project1-modal" data-modal-container>
+    <div class="overlay" data-overlay></div>
+    <section class="project-modal">
+        <button class="modal-close-btn" data-modal-close-btn>
+            <ion-icon name="close-outline"></ion-icon>
+        </button>
+        <figure class="modal-img-wrapper">
+            <img src="https://i.postimg.cc/qRHpHMyd/project-1.jpg" alt="Finance Project" width="100%">
+        </figure>
+        <div class="modal-content">
+            <h4 class="h3 modal-title">Finance Project</h4>
+            <p class="modal-text">This project involves developing a financial management application that helps users track their expenses and manage budgets effectively.</p>
+        </div>
+    </section>
+</div>
+
+
+</article>
 
             <article class="blog " data-page="blog">
                 <header>
