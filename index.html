@@ -1,372 +1,887 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Complex Networks</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.2.2/css/flat-ui.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
-  <link rel="stylesheet" href="./style.css">
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-  <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
-  <!-- Bootstrap CSS -->
-<link href="bootstrap.css" rel="stylesheet">
-
-<!-- Bootstrap JavaScript and dependencies (jQuery and Popper.js) -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-  <style>
-      .modal-content {
-          border-radius: 20px;
-          padding: 20px;
-      }
-      .modal-header {
-          border-bottom: none;
-      }
-      .modal-body img {
-          display: block;
-          margin: 0 auto 20px;
-          border-radius: 50%;
-      }
-      .modal-body {
-          text-align: center;
-      }
-      .modal-footer {
-          border-top: none;
-          justify-content: center;
-      }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="https://i.postimg.cc/9fqYVvxh/logo.png" type="image/x-icon">
 </head>
 <body>
-  <div class="burger">
-    <span></span>
-  </div>
-  <section class="navbar navbar-inverse navbar-fixed-top transparent col-md-8" style = 'margin-bottom: 3vh; padding-top: 0vh; pad'>
-        <div class="navbar-header">
-            <a class="navbar-brand" href="index.html" target="newwindow" style="margin-right:-1.5rem;"><img src = "logo.png" style="height:12.5vh;"></a><span style="position: relative; ">Complex Networks Dynamics Lab</span>
-        </div>
-       
-  </section>
-  <nav>
-    <ul class="main">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="alumni.html">Alumni</a></li>
-      <li><a href="awards.html">Awards</a></li>
-      <li><a href="funding.html">Fundings</a></li>
-      <li><a href="publications.html">Publications<span></span></a></li>
-    </ul>
-    
-    <div class="about">
-      <p>welcome to the menu</menu></menu></p>
-    </div>
-    
-    <div class="social">
-      <a href="#0" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="64px" height="64px" viewBox="0 0 64 64"><g transform="translate(0, 0)"><path d="M64,12.2c-2.4,1-4.9,1.8-7.5,2.1c2.7-1.6,4.8-4.2,5.8-7.3c-2.5,1.5-5.3,2.6-8.3,3.2C51.5,7.6,48.1,6,44.3,6 c-7.3,0-13.1,5.9-13.1,13.1c0,1,0.1,2,0.3,3C20.6,21.6,10.9,16.3,4.5,8.4c-1.1,1.9-1.8,4.2-1.8,6.6c0,4.6,2.3,8.6,5.8,10.9 c-2.2-0.1-4.2-0.7-5.9-1.6c0,0.1,0,0.1,0,0.2c0,6.4,4.5,11.7,10.5,12.9c-1.1,0.3-2.3,0.5-3.5,0.5c-0.8,0-1.7-0.1-2.5-0.2 c1.7,5.2,6.5,9,12.3,9.1c-4.5,3.5-10.2,5.6-16.3,5.6c-1.1,0-2.1-0.1-3.1-0.2C5.8,55.8,12.7,58,20.1,58c24.2,0,37.4-20,37.4-37.4 c0-0.6,0-1.1,0-1.7C60,17.1,62.2,14.8,64,12.2z"></path></g></svg></a>
-      <a href="#0" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="64px" height="64px" viewBox="0 0 64 64"><g transform="translate(0, 0)"><path d="M32,5.766c8.544,0,9.556,0.033,12.931,0.187c3.642,0.166,7.021,0.895,9.621,3.496 c2.6,2.6,3.329,5.979,3.496,9.621c0.154,3.374,0.187,4.386,0.187,12.931s-0.033,9.556-0.187,12.931 c-0.166,3.642-0.895,7.021-3.496,9.621c-2.6,2.6-5.98,3.329-9.621,3.496c-3.374,0.154-4.386,0.187-12.931,0.187 s-9.557-0.033-12.931-0.187c-3.642-0.166-7.021-0.895-9.621-3.496c-2.6-2.6-3.329-5.979-3.496-9.621 C5.798,41.556,5.766,40.544,5.766,32s0.033-9.556,0.187-12.931c0.166-3.642,0.895-7.021,3.496-9.621 c2.6-2.6,5.979-3.329,9.621-3.496C22.444,5.798,23.456,5.766,32,5.766 M32,0c-8.691,0-9.78,0.037-13.194,0.193 c-5.2,0.237-9.768,1.511-13.436,5.178C1.705,9.037,0.43,13.604,0.193,18.806C0.037,22.22,0,23.309,0,32 c0,8.691,0.037,9.78,0.193,13.194c0.237,5.2,1.511,9.768,5.178,13.436c3.666,3.666,8.234,4.941,13.436,5.178 C22.22,63.963,23.309,64,32,64s9.78-0.037,13.194-0.193c5.199-0.237,9.768-1.511,13.436-5.178c3.666-3.666,4.941-8.234,5.178-13.436 C63.963,41.78,64,40.691,64,32s-0.037-9.78-0.193-13.194c-0.237-5.2-1.511-9.768-5.178-13.436 c-3.666-3.666-8.234-4.941-13.436-5.178C41.78,0.037,40.691,0,32,0L32,0z"></path> <path data-color="color-2" d="M32,15.568c-9.075,0-16.432,7.357-16.432,16.432c0,9.075,7.357,16.432,16.432,16.432 S48.432,41.075,48.432,32C48.432,22.925,41.075,15.568,32,15.568z M32,42.667c-5.891,0-10.667-4.776-10.667-10.667 c0-5.891,4.776-10.667,10.667-10.667c5.891,0,10.667,4.776,10.667,10.667C42.667,37.891,37.891,42.667,32,42.667z"></path> <circle data-color="color-2" cx="49.082" cy="14.918" r="3.84"></circle></g></svg></a>
-    </div>
-    
-   <!-- <ul class="sub">
-      <li><a href="#0">FAQ &amp; Shipping</a></li>
-      <li><a href="#0">Terms &amp; Conditions</a></li>
-    </ul>-->
-  </nav>
-  
-  <div class="overlay"></div>
-<main data-spy="scroll" data-target=".navbar" data-offset="50">
-  <div class="jumbotron photo-cover text-inverse">
-      <div class="col-md-6 text-center center">
-        <h2>Complex Networks </h2>
-        <p >Dr. Chandrakala Meena</p>
-        <a href="#about">
-        <span class="fui-triangle-down large"></span>
-        </a>
-      </div> <!-- .col-md-6 -->
-    </div> <!-- .jumbotron -->
-<div id="about" class="jumbotron1">
-    <div class="container">
-      <div class="row ">
-        <div class=" col-md-12 col-md-offset-2 text-center text-align ">
-        <h2>About</h2>
-          <hr>
-        <p class="lead">
-        This is a trial site
-      </p>
-        <p>
-          
-          
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris suscipit vulputate nulla. Ut lectus turpis, malesuada at eros et, auctor sodales neque. Nullam a pulvinar nisl. Integer a nisl orci. Maecenas vitae nibh venenatis, dapibus metus sed, tempus lectus. Nulla gravida rutrum lectus in commodo. Mauris vehicula nisi lacus, eu sodales mi convallis nec. Sed quis efficitur risus. Nunc fermentum ac massa eget eleifend. Praesent malesuada diam sapien, eu fringilla lacus luctus nec. Etiam consequat tristique justo id maximus.
+    <main>
+        <aside class="sidebar " data-sidebar>
+            <div class="sidebar-info">
+                <figure class="avatar-box">
+                    <img src="https://i.postimg.cc/JzBWVhW4/my-avatar.png" alt="avatar" width="80">
+                </figure>
 
-Nullam ultrices et nulla eu facilisis. Maecenas quis tellus elementum, laoreet est ut, auctor ligula. Morbi tempus diam ac ante tincidunt accumsan. Quisque in diam mauris. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur et leo eget diam porttitor tincidunt vitae vitae odio. Praesent ullamcorper arcu libero, in tempus elit finibus id. Suspendisse porttitor nibh feugiat ultrices rutrum. Suspendisse pellentesque vestibulum orci, sit amet aliquam dolor interdum ut. Donec tristique condimentum ex molestie volutpat. Donec pulvinar dolor et odio fringilla varius non et lacus.
-</p>
-        
-        </div> <!-- .col-md-8 -->
-      </div> <!-- .row -->
-    </div> <!-- .container -->
-</div> <!-- #about -->
+                <div class="info-content">
+                    <h1 class="name" title="Richard Hanrick">Sarthak Thorat</h1>
+                    <p class="title">Physicist </p> 
+                </div>
 
-
-<div id="about" class="jumbotron2">
-  <div class="container">
-    <div class="row ">
-      <div class=" col-md-12 col-md-offset-2 text-center text-align ">
-      Dr Chandrakala Meena
-
-         
-          <img alt="Anita Simmons" class = "profile img" src="Unknown_person.jpg\"  style="width:30vw; "/>
-
-              <h2 class="profile__name">Assistant Professor Grade 1</h2>
-              <p>lorem ipsum</p>
-            </a>
-        
-        <h2>Lab Group</h2>
-        <hr>
-
-        <div class="team">
-          <ul class="auto-grid" role="list">
-            <li>
-              <a href="https://swop.link/cool" target=_blank" class="profile">
-                <h2 class="profile__name">Person 1</h2>
-                <p>PhD</p>
-                <img alt="Anita Simmons" class = "profile img" src="Unknown_person.jpg\" />
-              </a>
-            </li>
-            <li>
-              <a href="https://swop.link/cool" target=_blank" class="profile">
-                <h2 class="profile__name">Person 2</h2>
-                <p>Masters Thesis</p>
-                <img alt="Profile shot for Celina Harris" src="Unknown_person.jpg" />
-              </a>
-            </li>
-            <li>
-              <a href="https://swop.link/cool" target=_blank" class="profile">
-                <h2 class="profile__name">Person 3</h2>
-                <p>Master's student</p>
-                <img alt="Profile shot for Ruby Morris" src="Unknown_person.jpg" />
-              </a>
-            </li>
-            <li>
-              <a href="https://swop.link/cool" target=_blank" class="profile">
-                <h2 class="profile__name">Person 3</h2>
-                <p>Master's student</p>
-                <img alt="Profile shot for Ruby Morris" src="Unknown_person.jpg" />
-              </a>
-            </li>
-           
-          </ul>
-      
-      </div> <!-- .col-md-8 -->
-    </div> <!-- .row -->
-  </div> <!-- .container -->
-</div>
-
-<div id="about" class="jumbotron3">
-  <div class="container">
-    <div class="row ">
-      <div class=" col-md-12 col-md-offset-2 text-center text-align ">
-      <h2>About</h2>
-        <hr>
-      <p class="lead">
-      This is a trial site
-    </p>
-      <p>
-        
-        
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris suscipit vulputate nulla. Ut lectus turpis, malesuada at eros et, auctor sodales neque. Nullam a pulvinar nisl. Integer a nisl orci. Maecenas vitae nibh venenatis, dapibus metus sed, tempus lectus. Nulla gravida rutrum lectus in commodo. Mauris vehicula nisi lacus, eu sodales mi convallis nec. Sed quis efficitur risus. Nunc fermentum ac massa eget eleifend. Praesent malesuada diam sapien, eu fringilla lacus luctus nec. Etiam consequat tristique justo id maximus.
-
-Nullam ultrices et nulla eu facilisis. Maecenas quis tellus elementum, laoreet est ut, auctor ligula. Morbi tempus diam ac ante tincidunt accumsan. Quisque in diam mauris. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur et leo eget diam porttitor tincidunt vitae vitae odio. Praesent ullamcorper arcu libero, in tempus elit finibus id. Suspendisse porttitor nibh feugiat ultrices rutrum. Suspendisse pellentesque vestibulum orci, sit amet aliquam dolor interdum ut. Donec tristique condimentum ex molestie volutpat. Donec pulvinar dolor et odio fringilla varius non et lacus.
-</p>
-      
-      </div> <!-- .col-md-8 -->
-    </div> <!-- .row -->
-  </div> <!-- .container -->
-</div>
-
-  <!--<div id="portfolio" class="jumbotron background-primary text-inverse">
-    <div class="container">
-      <div class="row">
-        <h2 class="text-center">Portfolio</h2>
-        <hr>
-        <div class="col-xs-6 col-md-3">
-          <a class="thumbnail" page="avoriaz">
-             <svg aria-hidden="true" class="thumbnail-svg" data-prefix="fas" data-icon="vial" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512" class="svg-inline--fa fa-vial fa-w-15 fa-3x"><path fill="currentColor" d="M477.7 186.1L309.5 18.3c-3.1-3.1-8.2-3.1-11.3 0l-34 33.9c-3.1 3.1-3.1 8.2 0 11.3l11.2 11.1L33 316.5c-38.8 38.7-45.1 102-9.4 143.5 20.6 24 49.5 36 78.4 35.9 26.4 0 52.8-10 72.9-30.1l246.3-245.7 11.2 11.1c3.1 3.1 8.2 3.1 11.3 0l34-33.9c3.1-3 3.1-8.1 0-11.2zM318 256H161l148-147.7 78.5 78.3L318 256z" class=""></path></svg>
-              <div class="thumbnail-overlay" page="avoriaz">
-                <span class="glyphicon glyphicon-info-sign text-inverse large center"></span>
-              </div>
-          </a>
-        </div> <!-- .col-md-3 
-        <div class="col-xs-6 col-md-3">
-          <a class="thumbnail" page="vue-test-utils">
-            <svg aria-hidden="true" class="thumbnail-svg" data-prefix="fab" data-icon="vuejs" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-vuejs fa-w-14 fa-3x"><path fill="currentColor" d="M356.9 64.3H280l-56 88.6-48-88.6H0L224 448 448 64.3h-91.1zm-301.2 32h53.8L224 294.5 338.4 96.3h53.8L224 384.5 55.7 96.3z" class=""></path></svg>
-            <div class="thumbnail-overlay" page="vue-test-utils">
-              <span class="glyphicon glyphicon-info-sign text-inverse large center"></span>
+                <button class="info-more-btn" data-sidebar-btn>
+                    <span>Show Contacts</span>
+                    <ion-icon name="chevron-down"></ion-icon>
+                </button>
             </div>
-          </a>
-        </div> <!-- .col-md-3 
-        <div class="col-xs-6 col-md-3">
-          <a class="thumbnail" page="book">
-            <svg aria-hidden="true" class="thumbnail-svg" data-prefix="fas" data-icon="book" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-book fa-w-14 fa-3x"><path fill="currentColor" d="M448 360V24c0-13.3-10.7-24-24-24H96C43 0 0 43 0 96v320c0 53 43 96 96 96h328c13.3 0 24-10.7 24-24v-16c0-7.5-3.5-14.3-8.9-18.7-4.2-15.4-4.2-59.3 0-74.7 5.4-4.3 8.9-11.1 8.9-18.6zM128 134c0-3.3 2.7-6 6-6h212c3.3 0 6 2.7 6 6v20c0 3.3-2.7 6-6 6H134c-3.3 0-6-2.7-6-6v-20zm0 64c0-3.3 2.7-6 6-6h212c3.3 0 6 2.7 6 6v20c0 3.3-2.7 6-6 6H134c-3.3 0-6-2.7-6-6v-20zm253.4 250H96c-17.7 0-32-14.3-32-32 0-17.6 14.4-32 32-32h285.4c-1.9 17.1-1.9 46.9 0 64z" class=""></path></svg>
-            <div class="thumbnail-overlay" page="book">
-              <span class="glyphicon glyphicon-info-sign text-inverse large center"></span>
-            </div>            
-          </a>
-        </div> <!-- .col-md-3 
-        <div class="col-xs-6 col-md-3">
-          <a class="thumbnail" page="blog">
-            <svg class="thumbnail-svg" aria-hidden="true" data-prefix="fas" data-icon="rss" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-rss fa-w-14 fa-3x"><path fill="currentColor" d="M128.081 415.959c0 35.369-28.672 64.041-64.041 64.041S0 451.328 0 415.959s28.672-64.041 64.041-64.041 64.04 28.673 64.04 64.041zm175.66 47.25c-8.354-154.6-132.185-278.587-286.95-286.95C7.656 175.765 0 183.105 0 192.253v48.069c0 8.415 6.49 15.472 14.887 16.018 111.832 7.284 201.473 96.702 208.772 208.772.547 8.397 7.604 14.887 16.018 14.887h48.069c9.149.001 16.489-7.655 15.995-16.79zm144.249.288C439.596 229.677 251.465 40.445 16.503 32.01 7.473 31.686 0 38.981 0 48.016v48.068c0 8.625 6.835 15.645 15.453 15.999 191.179 7.839 344.627 161.316 352.465 352.465.353 8.618 7.373 15.453 15.999 15.453h48.068c9.034-.001 16.329-7.474 16.005-16.504z" class=""></path></svg>
-            <div class="thumbnail-overlay" page="blog">
-              <span class="glyphicon glyphicon-info-sign text-inverse large center"></span>
-            </div>            
-          </a>
-        </div> <!-- .col-md-3        
-      </div> <!-- .row 
-    </div> <!-- .container 
-  </div> <!-- #portfolio -->
-  <!--<div id="contact" class="jumbotron">
-    <div class="container">
-      <div class="col-md-8 col-md-offset-2 text-center">
-        <h2 class="">Get In Touch</h2>
-        <hr>
-        <form action="mailto:edward.yerburgh@gmail.com"  enctype="text/plain" method="post">
-        <div class="form-group">
-          <label for="InputEmail">Email address</label>
-          <input type="email" class="form-control" id="InputEmail" placeholder="Email">
-        </div> <!-- .form-group -->
-      <!--  <div class="form-group">
-          <label for="message">Message</label>
-          <textarea id="message" class="form-control" rows="3"></textarea>
-        </div> <!-- .form-group -->
-    <!-- <input type="submit" name="submit" class="btn btn-inverse">
-      </form>
-      </div> <!-- .col-md-8 -->
-   <!-- </div> <!-- .container -->
-  <!--</div> <!-- #contact -->
 
-<div class="text-center text-inverse navbar-inverse" style="background-color: #7e69b0c6;">
-    <div class="container">
-      <div class="row">
-        <div class="footer-col col-md-4">
-            <h3>IISER Thiruvananthapuram</h3>
-                <p>Kerala</p>
-        </div> <!-- .footer-col -->
-        <div class="footer-col col-md-4">
-            <h3>Contact- </h3>
-            <ul class="list-inline">
-              <li>
-                   <a class="small" href="#" target="newwindow"><span class="fui-gmail"></span></a>
-              </li>
-              <li>
-                  <a class="small" href="#" target="newwindow"><span class="fui-linkedin"></span></a>
-              </li>
-              <li>
-                  <a class="small" href="#" target="newwindow"><span class="fui-twitter"></span></a></a>
-              </li>
-            </ul>
-        </div> <!-- .footer-col -->
-        <div class="footer-col col-md-4">
-            <h3>Group name</h3>
-            <p>description</p>
-        </div> <!-- .footer-col -->
-      </div> <!-- .row -->
-    </div> <!-- .container --> 
-    <div class="background-secondary">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12" style = "font-size: small;">
-             Made by Sarthak Thorat, 2024
-          </div> <!-- .col-lg-12 -->
-        </div> <!-- .row -->
-      </div> <!-- .container  -->
-    </div> <!-- .background-secondary -->
-  </div> <!--  -->
-<div id="avoriaz" class="full-screen">
-  <div class="container">
-      <div class="col-md-6 text-center center">
-      <div class="row">
-      </div> <!-- .row -->           
-        <p class="lead">avoriaz is Vue testing utility library.</p>
-      <hr>
-      <div class="row">
-        <div class="col-md-3 col-md-offset-3">
-          <a class="btn-inverse btn-block btn-lg" target="_blank" href="https://github.com/eddyerburgh/avoriaz">View</a>
-        </div> <!-- .col-md-6 -->
-        <div class="col-md-3">
-          <a class="btn-danger btn-lg close-window btn-block">Close</a>
-        </div> <!-- .col-md-6 -->        
-      </div> <!-- .row -->      
-    </div> <!-- .col-md-6 -->
-  </div> <!-- .container -->
-</div> <!-- .full-screen -->
-<div id="vue-test-utils" class="full-screen">
-  <div class="container">
-    <div class="col-md-6 text-center center">
-      <div class="row">
-      </div> <!-- .row -->       
-      <p class="lead">
-        The official Vue testing library.
-      </p>
-      <p>
-        I'm the lead author and maintainer of Vue Test Utils.
-      </p>
-      <hr>
-      <div class="row">
-        <div class="col-md-3 col-md-offset-3">
-          <a class="btn-inverse btn-block btn-lg" target="newwindow" href="https://github.com/vuejs/vue-test-utils">View</a>
-        </div> <!-- .col-md-6 -->
-        <div class="col-md-3">
-          <a class="btn-danger btn-lg close-window btn-block">Close</a>
-        </div> <!-- .col-md-6 -->        
-      </div> <!-- .row -->      
-    </div> <!-- .col-md-6 -->
-  </div> <!-- .container -->
-</div> <!-- .full-screen -->
-<div id="book" class="full-screen">
-  <div class="container">
-    <div class="col-md-6 text-center center">
-      <div class="row">
-      </div> <!-- .row -->          
-      <p class="lead">Testing Vue.js Applications</p>
-      <p>
-       Learn how to test Vue.js applications with my book.</p>
-      <hr>
-      <div class="row">
-        <div class="col-md-3 col-md-offset-3">
-          <a class="btn-inverse btn-block btn-lg" target="_blank" href="https://www.manning.com/books/testing-vue-js-applications">View</a>
-        </div> <!-- .col-md-6 -->
-        <div class="col-md-3">
-          <a class="btn-danger btn-lg close-window btn-block">Close</a>
-        </div> <!-- .col-md-6 -->        
-      </div> <!-- .row -->
-    </div> <!-- .col-md-6 -->
-  </div> <!-- .container -->
-</div> <!-- .full-screen -->
-<div id="blog" class="full-screen">
-  <div class="container">
-    <div class="col-md-6 text-center center">
-      <div class="row">
-      </div> <!-- .row -->
-      <p class="lead">
-        My personal blog
-      </p>
-      <hr>
-      <div class="row">
-        <div class="col-md-3 col-md-offset-3">
-          <a class="btn-inverse btn-block btn-lg" target="_blank" href="https://eddyerburgh.me/">View</a>
-        </div> <!-- .col-md-6 -->
-        <div class="col-md-3">
-          <a class="btn-danger btn-lg close-window btn-block">Close</a>
-        </div> <!-- .col-md-6 -->        
-      </div> <!-- .row -->
-    </div> <!-- .col-md-6 -->
-  </div> <!-- .container -->
-</div> <!-- .full-screen -->
-</main>
-<!-- partial -->
-  <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
-<script src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script><script  src="./script.js"></script>
+            <div class="sidebar-info-more">
+                <div class="separator"></div>
 
+                <ul class="contacts-list">
+                    <li class="contact-item">
+                        <div class="icon-box">
+                            <ion-icon name="mail-outline"></ion-icon>
+                        </div>
+
+                        <div class="contact-info">
+                            <p class="contact-title">Email</p>
+
+                            <a href="mailto:richard@example.com" class="contact-link">thoratsarthak20@iisertvm.ac.in</a>
+                        </div>
+                    </li>
+
+                    <li class="contact-item">
+                        <div class="icon-box">
+                            <ion-icon name="phone-portrait-outline"></ion-icon>
+                        </div>
+
+                 <!--       <div class="contact-info">
+                            <p class="contact-title">Phone</p>
+
+                            <a href="tel:+12133522795" class="contact-link"></a>
+                        </div>
+                    </li>
+
+                    <li class="contact-item">
+                        <div class="icon-box">
+                            <ion-icon name="calendar-outline"></ion-icon>
+                        </div>-->
+
+                        <div class="contact-info">
+                            <p class="contact-title">Birthday</p>
+
+                            <time datetime="1982-06-23">September 29, 2002</time>
+                        </div>
+                    </li>
+
+                    <li class="contact-item">
+                        <div class="icon-box">
+                            <ion-icon name="location-outline"></ion-icon>
+                        </div>
+
+                        <div class="contact-info">
+                            <p class="contact-title">Location</p>
+
+                            <address>Navi Mumbai, Maharashtra, India</address>
+                        </div>
+                    </li>
+                </ul>
+
+                <div class="separator"></div>
+
+                <ul class="social-list">
+                    <li class="social-item"><a href="#" class="social-link"><ion-icon name="logo-facebook"></ion-icon></a></li>
+                    <li class="social-item"><a href="#" class="social-link"><ion-icon name="logo-twitter"></ion-icon></a></li>
+                    <li class="social-item"><a href="#" class="social-link"><ion-icon name="logo-instagram"></ion-icon></a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <div class="main-content">
+            <nav class="navbar">
+                <ul class="navbar-list">
+                    <li class="navbar-item"><button class="navbar-link active" data-nav-link>About</button></li>
+                    <li class="navbar-item"><button class="navbar-link" data-nav-link>Resume</button></li>
+                    <li class="navbar-item"><button class="navbar-link" data-nav-link>Portfolio</button></li>
+                    <li class="navbar-item"><button class="navbar-link" data-nav-link>Blog</button></li>
+                    <li class="navbar-item"><button class="navbar-link" data-nav-link>Contact</button></li>
+                </ul>
+            </nav>
+
+            <article class="about active" data-page="about">
+                <header>
+                    <h2 class="h2 article-title">About me</h2>
+                </header>
+
+                <section class="about-text">
+                    <p>I'm Creative Director and UI/UX Designer from Sydney, Australia, working in web development and print media. I enjoy turning complex problems into simple, beautiful and intuitive designs.</p>
+                    <p>My job is to build your website so that it is functional and user-friendly but at the same time attractive. Moreover, I add personal touch to your product and make sure that is eye-catching and easy to use. My aim is to bring across your message and identity in the most creative way. I created web design for many famous brand companies.</p>
+                </section>
+
+                <section class="service">
+                    <h3 class="h3 service-title">What I'm doing</h3>
+
+                    <ul class="service-list">
+                        <li class="service-item">
+                            <div class="service-icon-box">
+                                <img src="https://i.postimg.cc/4389jZkP/icon-design.png" alt="icon" width="40">
+                            </div>
+
+                            <div class="service-content-box">
+                                <h4 class="h4 service-item-title">Theoretical Physics</h4>
+                                <p class="service-item-text">I try to study Particle Physics and its Cosmological implications</p>
+                            </div>
+                        </li>
+
+                        <li class="service-item">
+                            <div class="service-icon-box">
+                                <img src="https://i.postimg.cc/ZqgqrqzG/icon-dev.png" alt="icon" width="40">
+                            </div>
+
+                            <div class="service-content-box">
+                                <h4 class="h4 service-item-title">Web development</h4>
+                                <p class="service-item-text">High-quality development of sites at the professional level.</p>
+                            </div>
+                        </li>
+
+                        <li class="service-item">
+                            <div class="service-icon-box">
+                                <img src="https://i.postimg.cc/xjLdzYxZ/icon-app.png" alt="icon" width="40">
+                            </div>
+
+                            <div class="service-content-box">
+                                <h4 class="h4 service-item-title">Mobile apps</h4>
+                                <p class="service-item-text">Professional development of applications for iOS and Android.</p>
+                            </div>
+                        </li>
+
+                        <li class="service-item">
+                            <div class="service-icon-box">
+                                <img src="https://i.postimg.cc/0NL8zHpx/icon-photo.png" alt="icon" width="40">
+                            </div>
+
+                            <div class="service-content-box">
+                                <h4 class="h4 service-item-title">Photography</h4>
+                                <p class="service-item-text">I make high-quality photos of any category at a professional level.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="testimonials">
+                    <h3 class="h3 testimonials-title">Testimonials</h3>
+
+                    <ul class="testimonials-list has-scrollbar">
+                        <li class="testimonials-item">
+                            <div class="content-card" data-testimonials-item>
+                                <figure class="testimonials-avatar-box">
+                                    <img src="https://i.postimg.cc/zGDHfn3G/avatar-1.png" alt="avatar" data-testimonials-avatar width="60">
+                                </figure>
+
+                                <h4 class="h4 testimonials-item-title" data-testimonials-title>Daniel Lewis</h4>
+
+                                <div class="testimonials-text" data-testimonials-text>
+                                    <p>Richard was hired to create a corporate identity. It's modern, clean and with a beautiful design that got a lot of praises from colleagues and visitors. We were very pleased with the work done. He has a lot of experience and is very concerned about the needs of client.</p>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="testimonials-item">
+                            <div class="content-card" data-testimonials-item>
+                                <figure class="testimonials-avatar-box">
+                                    <img src="https://i.postimg.cc/DwY0yHtx/avatar-2.png" alt="avatar" data-testimonials-avatar width="60">
+                                </figure>
+
+                                <h4 class="h4 testimonials-item-title" data-testimonials-title>Jessica Miller</h4>
+
+                                <div class="testimonials-text" data-testimonials-text>
+                                    <p>Working with Richard has been an absolute pleasure. I was impressed with his attention to detail, his web design skills and his professional approach to our timelines and processes.</p>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="testimonials-item">
+                            <div class="content-card" data-testimonials-item>
+                                <figure class="testimonials-avatar-box">
+                                    <img src="https://i.postimg.cc/fRFWhX9F/avatar-3.png" alt="avatar" data-testimonials-avatar width="60">
+                                </figure>
+
+                                <h4 class="h4 testimonials-item-title" data-testimonials-title>Emily Evans</h4>
+
+                                <div class="testimonials-text" data-testimonials-text>
+                                    <p>I couldn't be happier with the website that Richard created for us. His attention to detail and creativity is unmatched. Our clients frequently compliment the design, and it has significantly improved our brand image.</p>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="testimonials-item">
+                            <div class="content-card" data-testimonials-item>
+                                <figure class="testimonials-avatar-box">
+                                    <img src="https://i.postimg.cc/zXv1Xv81/avatar-4.png" alt="avatar" data-testimonials-avatar width="60">
+                                </figure>
+
+                                <h4 class="h4 testimonials-item-title" data-testimonials-title>Henry Williams</h4>
+
+                                <div class="testimonials-text" data-testimonials-text>
+                                    <p>I was overwhelmed with the thought of redesigning my online store, but Richard made the process seamless. The site is not only visually appealing but also optimized for conversions. I've seen a 50% increase in traffic since the launch!</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+
+                <div class="modal-container " data-modal-container>
+                    <div class="overlay " data-overlay></div>
+
+                    <section class="testimonials-modal">
+                        <button class="modal-close-btn" data-modal-close-btn><ion-icon name="close-outline"></ion-icon></button>
+
+                        <div class="modal-img-wrapper">
+                            <figure class="modal-avatar-box">
+                                <img src="https://i.postimg.cc/zGDHfn3G/avatar-1.png" alt="Daniel Lewis" width="80" data-modal-img>
+                            </figure>
+
+                            <img src="https://i.postimg.cc/mZ00RwX7/icon-quote.png" alt="quote icon">
+                        </div>
+
+                        <div class="modal-content">
+                            <h4 class="h3 modal-title" data-modal-title>Daniel Lewis</h4>
+                            <time datetime="2023-06-14">14 June, 2023</time>
+
+                            <div class="modal-text" data-modal-text>
+                                <p>Richard was hired to create a corporate identity. It's modern, clean and with a beautiful design that got a lot of praises from colleagues and visitors. We were very pleased with the work done. He has a lot of experience and is very concerned about the needs of client.</p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <section class="clients">
+                    <h3 class="h3 clients-title">Clients</h3>
+
+                    <ul class="clients-list has-scrollbar">
+                        <li class="clients-item">
+                            <a href="#"><img src="https://i.postimg.cc/YqfKyG66/logo-1-color.png" alt="logo"></a>
+                        </li>
+
+                        <li class="clients-item">
+                            <a href="#"><img src="https://i.postimg.cc/fWm6JtgG/logo-2-color.png" alt="logo"></a>
+                        </li>
+
+                        <li class="clients-item">
+                            <a href="#"><img src="https://i.postimg.cc/Bb07xpwd/logo-3-color.png" alt="logo"></a>
+                        </li>
+
+                        <li class="clients-item">
+                            <a href="#"><img src="https://i.postimg.cc/hv1yMmkh/logo-4-color.png" alt="logo"></a>
+                        </li>
+
+                        <li class="clients-item">
+                            <a href="#"><img src="https://i.postimg.cc/ry1P86Dc/logo-5-color.png" alt="logo"></a>
+                        </li>
+
+                        <li class="clients-item">
+                            <a href="#"><img src="https://i.postimg.cc/SsWDN8NV/logo-6-color.png" alt="logo"></a>
+                        </li>
+                    </ul>
+                </section>
+
+            </article>
+            
+            <article class="resume " data-page="resume">
+                <header>
+                    <h2 class="h2 article-title">Resume</h2>
+                </header>
+
+                <section class="timeline">
+                    <div class="title-wrapper">
+                        <div class="icon-box"><ion-icon name="book-outline"></ion-icon></div>
+
+                        <h3 class="h3">Education</h3>
+                    </div>
+
+                    <ol class="timeline-list">
+                        <li class="timeline-item">
+                            <h4 class="h4 timeline-item-title">University school of the arts</h4>
+                            <span>2008 - 2010</span>
+                            <p class="timeline-text">There I learnt a wide range of topics that are essential to understanding both the theory and practical aspects of computing. This involves programming fundamentals, computer architecture, operating systems, databases, software engineering, problem solving, collaboration and communication soft skills.</p>
+                        </li>
+
+                        <li class="timeline-item">
+                            <h4 class="h4 timeline-item-title">New York Academy of Art</h4>
+                            <span>2006 - 2007</span>
+                            <p class="timeline-text">I chose my master degree in technology. There I deepened my knowledge, enhanced my skills in the area and learnt how to increase my career prospects in a competitive job market.</p>
+                        </li>
+
+                        <li class="timeline-item">
+                            <h4 class="h4 timeline-item-title">High School of Art and Design</h4>
+                            <span>2003 - 2005</span>
+                            <p class="timeline-text">There I learnt foundational courses and computer sciences fundamentals. In the institution, I chose my specialization in web-development that involves front-end and back-end technologies, user interface designs and content management systems.</p>
+                        </li>
+                    </ol>
+                </section>
+
+                <section class="timeline">
+                    <div class="title-wrapper">
+                        <div class="icon-box"><ion-icon name="book-outline"></ion-icon></div>
+
+                        <h3 class="h3">Experience</h3>
+                    </div>
+
+                    <ol class="timeline-list">
+                        <li class="timeline-item">
+                            <h4 class="h4 timeline-item-title">Creative director</h4>
+                            <span>2015 - Present</span>
+                            <p class="timeline-text">I can develop and oversee creative concepts for projects and campaigns managing a team of designers, writers, and other creative professionals.</p>
+                        </li>
+
+                        <li class="timeline-item">
+                            <h4 class="h4 timeline-item-title">Art director</h4>
+                            <span>2013 - 2015</span>
+                            <p class="timeline-text">I create and develop visual concepts that align with the project's goals and objectives, supervising the design process and managing timelines and budgets for design projects.</p>
+                        </li>
+
+                        <li class="timeline-item">
+                            <h4 class="h4 timeline-item-title">Web designer</h4>
+                            <span>2010 - 2013</span>
+                            <p class="timeline-text">I create logos, color schemes and typography for a brand's identity. Also I develop graphics for websites, social media and digital ads with applications that enhance user experience.</p>
+                        </li>
+                    </ol>
+                </section>
+
+                <section class="skill">
+                    <h3 class="h3 skills-title">My Skills</h3>
+
+                    <ul class="skills-list content-card">
+                        <li class="skills-item">
+                            <div class="title-wrapper">
+                                <h5 class="h5">Web Design</h5>
+                                <data value="80">80%</data>
+                            </div>
+
+                            <div class="skills-progress-bg">
+                                <div class="skills-progress-fill" style="width: 80%;"></div>
+                            </div>
+                        </li>
+
+                        <li class="skills-item">
+                            <div class="title-wrapper">
+                                <h5 class="h5">Graphic Design</h5>
+                                <data value="70">70%</data>
+                            </div>
+
+                            <div class="skills-progress-bg">
+                                <div class="skills-progress-fill" style="width: 70%;"></div>
+                            </div>
+                        </li>
+
+                        <li class="skills-item">
+                            <div class="title-wrapper">
+                                <h5 class="h5">Branding</h5>
+                                <data value="90">90%</data>
+                            </div>
+
+                            <div class="skills-progress-bg">
+                                <div class="skills-progress-fill" style="width: 90%;"></div>
+                            </div>
+                        </li>
+
+                        <li class="skills-item">
+                            <div class="title-wrapper">
+                                <h5 class="h5">WordPress</h5>
+                                <data value="50">50%</data>
+                            </div>
+
+                            <div class="skills-progress-bg">
+                                <div class="skills-progress-fill" style="width: 50%;"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+            </article>
+
+            <article class="portfolio " data-page="portfolio">
+                <header>
+                    <h2 class="h2 article-title">Portfolio</h2>
+                </header>
+
+                <section class="projects">
+                    <ul class="filter-list">
+                        <li class="filter-item"><button class="active" data-filter-btn>All</button></li>
+                        <li class="filter-item"><button data-filter-btn>Web Design</button></li>
+                        <li class="filter-item"><button data-filter-btn>Applications</button></li>
+                        <li class="filter-item"><button data-filter-btn>Web Development</button></li>
+                    </ul>
+
+                    <div class="filter-select-box">
+                        <button class="filter-select " data-select>
+                            <div class="select-value" data-select-value>Select Category</div>
+
+                            <div class="select-icon">
+                                <ion-icon name="chevron-down"></ion-icon>
+                            </div>
+                        </button>
+
+                        <ul class="select-list">
+                            <li class="select-item"><button data-select-item>All</button></li>
+                            <li class="select-item"><button data-select-item>Web Design</button></li>
+                            <li class="select-item"><button data-select-item>Applications</button></li>
+                            <li class="select-item"><button data-select-item>Web Development</button></li>
+                        </ul>
+                    </div>
+
+                    <ul class="project-list">
+                        <li class="project-item active" data-filter-item data-category="web development">
+                            <a href="#">
+                                <figure class="project-img">
+                                    <div class="project-item-icon-box">
+                                        <ion-icon name="eye-outline"></ion-icon>
+                                    </div>
+
+                                    <img src="https://i.postimg.cc/qRHpHMyd/project-1.jpg" alt="finance" loading="lazy">
+                                </figure>
+
+                                <h3 class="project-title">Finance</h3>
+                                <p class="project-category">Web Development</p>
+                            </a>
+                        </li>
+
+                        <li class="project-item active" data-filter-item data-category="web development">
+                            <a href="#">
+                                <figure class="project-img">
+                                    <div class="project-item-icon-box">
+                                        <ion-icon name="eye-outline"></ion-icon>
+                                    </div>
+
+                                    <img src="https://i.postimg.cc/bNrcM2Wt/project-2.png" alt="orizon" loading="lazy">
+                                </figure>
+
+                                <h3 class="project-title">Orizon</h3>
+                                <p class="project-category">Web Development</p>
+                            </a>
+                        </li>
+
+                        <li class="project-item active" data-filter-item data-category="web design">
+                            <a href="#">
+                                <figure class="project-img">
+                                    <div class="project-item-icon-box">
+                                        <ion-icon name="eye-outline"></ion-icon>
+                                    </div>
+
+                                    <img src="https://i.postimg.cc/jSJVqYsq/project-3.jpg" alt="fundo" loading="lazy">
+                                </figure>
+
+                                <h3 class="project-title">Fundo</h3>
+                                <p class="project-category">Web Design</p>
+                            </a>
+                        </li>
+
+                        <li class="project-item active" data-filter-item data-category="applications">
+                            <a href="#">
+                                <figure class="project-img">
+                                    <div class="project-item-icon-box">
+                                        <ion-icon name="eye-outline"></ion-icon>
+                                    </div>
+
+                                    <img src="https://i.postimg.cc/dtpXxNGb/project-4.png" alt="brawlhalla" loading="lazy">
+                                </figure>
+
+                                <h3 class="project-title">Brawlhalla</h3>
+                                <p class="project-category">Applications</p>
+                            </a>
+                        </li>
+
+                        <li class="project-item active" data-filter-item data-category="web design">
+                            <a href="#">
+                                <figure class="project-img">
+                                    <div class="project-item-icon-box">
+                                        <ion-icon name="eye-outline"></ion-icon>
+                                    </div>
+
+                                    <img src="https://i.postimg.cc/43T0JKLw/project-5.png" alt="dsm." loading="lazy">
+                                </figure>
+
+                                <h3 class="project-title">DSM.</h3>
+                                <p class="project-category">Web Design</p>
+                            </a>
+                        </li>
+
+                        <li class="project-item active" data-filter-item data-category="web design">
+                            <a href="#">
+                                <figure class="project-img">
+                                    <div class="project-item-icon-box">
+                                        <ion-icon name="eye-outline"></ion-icon>
+                                    </div>
+
+                                    <img src="https://i.postimg.cc/qR1DX1kZ/project-6.png" alt="metaspark" loading="lazy">
+                                </figure>
+
+                                <h3 class="project-title">Metaspark</h3>
+                                <p class="project-category">Web Design</p>
+                            </a>
+                        </li>
+
+                        <li class="project-item active" data-filter-item data-category="web development">
+                            <a href="#">
+                                <figure class="project-img">
+                                    <div class="project-item-icon-box">
+                                        <ion-icon name="eye-outline"></ion-icon>
+                                    </div>
+
+                                    <img src="https://i.postimg.cc/Kj4q9tjc/project-7.png" alt="summary" loading="lazy">
+                                </figure>
+
+                                <h3 class="project-title">Summary</h3>
+                                <p class="project-category">Web Development</p>
+                            </a>
+                        </li>
+
+                        <li class="project-item active" data-filter-item data-category="applications">
+                            <a href="#">
+                                <figure class="project-img">
+                                    <div class="project-item-icon-box">
+                                        <ion-icon name="eye-outline"></ion-icon>
+                                    </div>
+
+                                    <img src="https://i.postimg.cc/rw2j4B1w/project-8.jpg" alt="task manager" loading="lazy">
+                                </figure>
+
+                                <h3 class="project-title">Task Manager</h3>
+                                <p class="project-category">Applications</p>
+                            </a>
+                        </li>
+
+                        <li class="project-item active" data-filter-item data-category="web development">
+                            <a href="#">
+                                <figure class="project-img">
+                                    <div class="project-item-icon-box">
+                                        <ion-icon name="eye-outline"></ion-icon>
+                                    </div>
+
+                                    <img src="https://i.postimg.cc/7LxNsSQv/project-9.png" alt="arrival" loading="lazy">
+                                </figure>
+
+                                <h3 class="project-title">Arrival</h3>
+                                <p class="project-category">Web Development</p>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+            </article>
+
+            <article class="blog " data-page="blog">
+                <header>
+                    <h2 class="h2 article-title">Blog</h2>
+                </header>
+
+                <section class="blog-posts">
+                    <ul class="blog-posts-list">
+                        <li class="blog-post-item">
+                            <a href="blog-1.html">
+                                    <figure class="blog-banner-box">
+                                        <img src="https://i.postimg.cc/DysCZrWs/blog-1.jpg" alt="Design conferences in 2024" loading="lazy">
+                                    </figure>
+
+                                <div class="blog-content">
+                                    <div class="blog-meta">
+                                        <p class="blog-category">Design</p>
+                                        <span class="dot"></span>
+                                        <time datetime="2024-02-23">Feb 23, 2024</time>
+                                    </div>
+
+                                    <h3 class="h3 blog-item-title">Design conferences in 2024</h3>
+                                    <p class="blog-text">In 2024, several exciting design conferences are set to take place, offering opportunities for professionals and enthusiasts to connect, learn, and share innovative ideas.</p>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="blog-post-item">
+                            <a href="#">
+                                <figure class="blog-banner-box">
+                                    <img src="https://i.postimg.cc/QC7qFDMs/blog-2.jpg" alt="Best fonts every designer" loading="lazy">
+                                </figure>
+
+
+                                <div class="blog-content">
+                                    <div class="blog-meta">
+                                        <p class="blog-category">Design</p>
+                                        <span class="dot"></span>
+                                        <time datetime="2024-01-29">Jan 29, 2024</time>
+                                    </div>
+
+                                    <h3 class="h3 blog-item-title">Best fonts every designer</h3>
+                                    <p class="blog-text">When it comes to typography, choosing the right font is essential for effective design. In this article, I'll bring a brief overview of some of the best fonts that every designer should consider incorporating into their toolkit.</p>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="blog-post-item">
+                            <a href="#">
+                                <figure class="blog-banner-box">
+                                    <img src="https://i.postimg.cc/W1T71QcL/blog-3.jpg" alt="Design digest #80" loading="lazy">
+                                </figure>
+
+                                <div class="blog-content">
+                                    <div class="blog-meta">
+                                        <p class="blog-category">Design</p>
+                                        <span class="dot"></span>
+                                        <time datetime="2023-12-20">Dec 20, 2023</time>
+                                    </div>
+
+                                    <h3 class="h3 blog-item-title">Design digest #80</h3>
+                                    <p class="blog-text">Hello, my friends. In this Design Digest, I'll show you a curated collection of the latest trends, insights, and innovations in the design world. This edition highlights key themes and discussions that are shaping the future of design.</p>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="blog-post-item">
+                            <a href="#">
+                                <figure class="blog-banner-box">
+                                    <img src="https://i.postimg.cc/2S0n8yxh/blog-4.jpg" alt="2023 UI interactions" loading="lazy">
+                                </figure>
+
+                                <div class="blog-content">
+                                    <div class="blog-meta">
+                                        <p class="blog-category">Design</p>
+                                        <span class="dot"></span>
+                                        <time datetime="2023-11-29">Nov 29, 2023</time>
+                                    </div>
+
+                                    <h3 class="h3 blog-item-title">2023 UI interactions</h3>
+                                    <p class="blog-text">As we move into 2024, 2023 was marked by the rapidly evolution of the landscape of UI interactions, driven by advancements in technology and user expectations. Dive with me in this text to see the main areas changed in this year.</p>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="blog-post-item">
+                            <a href="#">
+                                <figure class="blog-banner-box">
+                                    <img src="https://i.postimg.cc/YCCmVkw9/blog-5.jpg" alt="The forgotten art of spacing" loading="lazy">
+                                </figure>
+
+                                <div class="blog-content">
+                                    <div class="blog-meta">
+                                        <p class="blog-category">Design</p>
+                                        <span class="dot"></span>
+                                        <time datetime="2023-11-12">Nov 12, 2023</time>
+                                    </div>
+
+                                    <h3 class="h3 blog-item-title">The forgotten art of spacing</h3>
+                                    <p class="blog-text">In the realm of design, spacing is often an overlooked yet crucial element that can significantly impact the overall aesthetic and functionality of a composition. This post will emphasize the importance of white space, margins, and padding in creating visually appealing and effective designs.</p>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="blog-post-item">
+                            <a href="#">
+                                <figure class="blog-banner-box">
+                                    <img src="https://i.postimg.cc/zBCBvP16/blog-6.jpg" alt="Design digest #79" loading="lazy">
+                                </figure>
+
+                                <div class="blog-content">
+                                    <div class="blog-meta">
+                                        <p class="blog-category">Design</p>
+                                        <span class="dot"></span>
+                                        <time datetime="2023-10-20">Oct 20, 2023</time>
+                                    </div>
+
+                                    <h3 class="h3 blog-item-title">Design digest #79</h3>
+                                    <p class="blog-text">Hi, my friends. In this Design Digest I'll focus in the tools and resources that we use daily in our projects. Also, I'll include examples of software recommendations, online courses, and design communities that foster collaboration and learning.</p>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+            </article>
+
+            <article class="contact " data-page="contact">
+                <header>
+                    <h2 class="h2 article-title">Contact</h2>
+                </header>
+
+                <section class="mapbox" data-mapbox>
+                    <figure>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d199666.5651251294!2d-121.58334177520186!3d38.56165006739519!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x809ac672b28397f9%3A0x921f6aaa74197fdb!2sSacramento%2C%20CA%2C%20USA!5e0!3m2!1sen!2sbd!4v1647608789441!5m2!1sen!2sbd"
+                         width="400" height="300" loading="lazy"></iframe>
+                    </figure>
+                </section>
+
+                <section class="contact-form">
+                    <h3 class="h3 form-title">Contact Form</h3>
+
+                    <form action="#" class="form" data-form>
+                        <div class="input-wrapper">
+                            <input type="text" name="fullname" class="form-input" placeholder="Full name" required data-form-input>
+                            <input type="email" name="email" class="form-input" placeholder="Email Address" required data-form-input>
+                        </div>
+
+                        <textarea name="message" class="form-input" placeholder="Your Message" required data-form-input=""></textarea>
+
+                        <button class="form-btn" type="submit" disabled data-form-btn>
+                            <ion-icon name="paper-plane"></ion-icon>
+                            <span>Send Message</span>
+                        </button>
+                    </form>
+                </section>
+            </article>
+        </div>
+    </main>
+  
+<div class="footer">
+  <div class="bubbles">
+    <div class="bubble" style="--size:2.1429301068591933rem; --distance:8.2061328075137rem; --position:99.10343418610917%; --time:3.664954344198798s; --delay:-3.855122992941456s;"></div>
+    <div class="bubble" style="--size:2.329187477887176rem; --distance:6.866403011769602rem; --position:47.91027407058473%; --time:2.374263379454161s; --delay:-3.617460634377482s;"></div>
+    <div class="bubble" style="--size:5.5302252788126705rem; --distance:9.97175541676506rem; --position:69.18399299637483%; --time:3.456687190456541s; --delay:-3.8413937067489603s;"></div>
+    <div class="bubble" style="--size:5.279490232740157rem; --distance:7.072865245806869rem; --position:31.05266396628126%; --time:3.360581332271461s; --delay:-3.356717661403544s;"></div>
+    <div class="bubble" style="--size:4.499661260205158rem; --distance:7.299538793923668rem; --position:13.720987959568241%; --time:2.666929049329738s; --delay:-3.093492259488855s;"></div>
+    <div class="bubble" style="--size:4.708932615737755rem; --distance:8.838480269544144rem; --position:-3.463519600315985%; --time:3.7904375373312384s; --delay:-3.6792211934966663s;"></div>
+    <div class="bubble" style="--size:5.431924592558009rem; --distance:9.562522369118712rem; --position:11.72524104879578%; --time:2.9822360867012474s; --delay:-3.999921713636293s;"></div>
+    <div class="bubble" style="--size:4.121848593528544rem; --distance:6.178417897508541rem; --position:22.327153327279227%; --time:2.977108070524272s; --delay:-3.132444577739833s;"></div>
+    <div class="bubble" style="--size:3.853979399937055rem; --distance:9.805376570434007rem; --position:64.97734155339256%; --time:2.2942424909920764s; --delay:-3.959380266948726s;"></div>
+    <div class="bubble" style="--size:4.914446543693922rem; --distance:9.111009849820084rem; --position:8.555827395652617%; --time:3.3855410607634058s; --delay:-3.9144714733994572s;"></div>
+    <div class="bubble" style="--size:2.5067922551781043rem; --distance:7.180065450989502rem; --position:70.14222796722319%; --time:3.6759942061067687s; --delay:-3.288651671799248s;"></div>
+    <div class="bubble" style="--size:2.941779759147389rem; --distance:9.230285804790466rem; --position:27.93880603078037%; --time:2.724320142193668s; --delay:-3.3155555059011825s;"></div>
+    <div class="bubble" style="--size:5.770390997851521rem; --distance:6.361656334362274rem; --position:17.44102005644109%; --time:3.222942530722829s; --delay:-3.1819637417586484s;"></div>
+    <div class="bubble" style="--size:2.486382046503903rem; --distance:6.497250839549602rem; --position:17.512871336569425%; --time:2.7734010902092336s; --delay:-2.2766624595516767s;"></div>
+    <div class="bubble" style="--size:2.7505948275719545rem; --distance:6.811627925502249rem; --position:24.311030012986116%; --time:3.6596595381008465s; --delay:-2.1707750610184866s;"></div>
+    <div class="bubble" style="--size:5.726792900298585rem; --distance:8.65582719935163rem; --position:-0.13333407330383462%; --time:2.099139852546247s; --delay:-3.993005984438124s;"></div>
+    <div class="bubble" style="--size:3.3211324944230123rem; --distance:6.586880471736335rem; --position:31.966541620211345%; --time:3.734883470082847s; --delay:-2.07480752609388s;"></div>
+    <div class="bubble" style="--size:2.501587852090166rem; --distance:6.9081893332084405rem; --position:69.10316448117742%; --time:3.578281488676977s; --delay:-2.902876397482813s;"></div>
+    <div class="bubble" style="--size:3.6634363306345072rem; --distance:7.5867865018748715rem; --position:67.70295520655533%; --time:2.205602889127713s; --delay:-3.8758467375231245s;"></div>
+    <div class="bubble" style="--size:4.718822606459338rem; --distance:9.672672132202427rem; --position:49.03957896367478%; --time:3.220141182548537s; --delay:-3.989806442870084s;"></div>
+    <div class="bubble" style="--size:3.206968873060049rem; --distance:8.631201796079196rem; --position:99.15262937412693%; --time:2.4173716152359073s; --delay:-2.4363303043122726s;"></div>
+    <div class="bubble" style="--size:2.823811154904149rem; --distance:7.730930532615528rem; --position:61.95283093744767%; --time:3.4700842585774208s; --delay:-2.248438649076813s;"></div>
+    <div class="bubble" style="--size:3.6718024184952043rem; --distance:6.396814548114313rem; --position:-4.378279521814212%; --time:3.4308301649961863s; --delay:-3.5054255639207996s;"></div>
+    <div class="bubble" style="--size:3.8958506858988446rem; --distance:9.374109473235045rem; --position:47.77621284660187%; --time:3.757907938332286s; --delay:-2.6094538772700173s;"></div>
+    <div class="bubble" style="--size:4.5487666355847045rem; --distance:9.336088286002603rem; --position:84.99025847486634%; --time:2.605573245730197s; --delay:-2.5142752800544486s;"></div>
+    <div class="bubble" style="--size:2.903313259821899rem; --distance:6.704923311258809rem; --position:26.423368498124308%; --time:3.802905919938483s; --delay:-2.7086901565305026s;"></div>
+    <div class="bubble" style="--size:2.617319397524282rem; --distance:6.707962662876949rem; --position:56.58214061401191%; --time:3.6623347912462294s; --delay:-3.3704376118137978s;"></div>
+    <div class="bubble" style="--size:2.3181650339533952rem; --distance:6.118028515449334rem; --position:25.698637528830915%; --time:3.9239985260419816s; --delay:-2.4963907140691854s;"></div>
+    <div class="bubble" style="--size:3.425040995699127rem; --distance:6.53627837990794rem; --position:46.41967372382192%; --time:2.3356853714762527s; --delay:-3.0115863943022414s;"></div>
+    <div class="bubble" style="--size:5.463459711791594rem; --distance:7.721617793636409rem; --position:45.154735519055954%; --time:2.5854464326707514s; --delay:-2.4000518446640347s;"></div>
+    <div class="bubble" style="--size:3.2784996778482887rem; --distance:7.067620826344903rem; --position:21.91222411770998%; --time:3.0357255920559476s; --delay:-3.618697513834611s;"></div>
+    <div class="bubble" style="--size:3.8356529452771193rem; --distance:8.136706923991362rem; --position:60.40097434190365%; --time:2.2514333505570345s; --delay:-2.2039298135796703s;"></div>
+    <div class="bubble" style="--size:2.8781027831602026rem; --distance:8.616467724297232rem; --position:38.09593294549869%; --time:2.993734773296211s; --delay:-3.346387556925354s;"></div>
+    <div class="bubble" style="--size:2.060847670773744rem; --distance:6.278519508207535rem; --position:68.20581427084062%; --time:2.4599536669645214s; --delay:-2.2277745135599663s;"></div>
+    <div class="bubble" style="--size:2.3679676958467866rem; --distance:8.822344657107843rem; --position:81.90312208514675%; --time:2.4944470541820793s; --delay:-3.2935686864896674s;"></div>
+    <div class="bubble" style="--size:3.367165948542918rem; --distance:9.871004114531283rem; --position:-2.180744235463301%; --time:2.0428376088781617s; --delay:-2.269180805890288s;"></div>
+    <div class="bubble" style="--size:3.874361189043512rem; --distance:9.992823440663795rem; --position:54.70467699725342%; --time:2.5241268188044845s; --delay:-3.2770639458424333s;"></div>
+    <div class="bubble" style="--size:2.5706714482936137rem; --distance:9.948845616153118rem; --position:12.8694026279831%; --time:2.6633178012282674s; --delay:-2.8850624675119194s;"></div>
+    <div class="bubble" style="--size:2.3511196148360707rem; --distance:9.407488221575438rem; --position:94.62108478312018%; --time:3.1370479280847214s; --delay:-2.5910733323356463s;"></div>
+    <div class="bubble" style="--size:2.3902763181297253rem; --distance:6.505922055244261rem; --position:50.094737927474384%; --time:2.978477684227615s; --delay:-2.0190896982941475s;"></div>
+    <div class="bubble" style="--size:3.3285137010473047rem; --distance:6.620839805896278rem; --position:-3.5536803089772917%; --time:3.67929791108076s; --delay:-2.9344159683244104s;"></div>
+    <div class="bubble" style="--size:2.1066802287988153rem; --distance:8.078556992681207rem; --position:59.838662040955754%; --time:3.9391519835500297s; --delay:-2.310019799963331s;"></div>
+    <div class="bubble" style="--size:5.283467318372476rem; --distance:9.277175493943394rem; --position:8.163246221544341%; --time:2.781270424950416s; --delay:-3.5433730475479783s;"></div>
+    <div class="bubble" style="--size:2.977893648844084rem; --distance:9.08406316950117rem; --position:-0.08712847429127102%; --time:2.0712408489261103s; --delay:-3.0963424575907976s;"></div>
+    <div class="bubble" style="--size:4.300101798944644rem; --distance:8.456446241046866rem; --position:51.41902324255184%; --time:2.6123500616320756s; --delay:-3.452556242006429s;"></div>
+    <div class="bubble" style="--size:3.1394976365981178rem; --distance:7.880105274402185rem; --position:77.06422223175373%; --time:3.6665320582668146s; --delay:-3.94069637708975s;"></div>
+    <div class="bubble" style="--size:2.7606483056893465rem; --distance:7.419767175072375rem; --position:92.00152755616688%; --time:2.984752600484316s; --delay:-2.27678531116584s;"></div>
+    <div class="bubble" style="--size:2.7084009353398715rem; --distance:9.747301045630685rem; --position:17.449978115125514%; --time:2.820515084001282s; --delay:-2.3733688471376255s;"></div>
+    <div class="bubble" style="--size:3.677501286497394rem; --distance:6.2846881573701765rem; --position:44.72233708531628%; --time:3.035312150644439s; --delay:-2.9443751720955826s;"></div>
+    <div class="bubble" style="--size:3.157863003189094rem; --distance:8.328107189420061rem; --position:16.054830918401223%; --time:3.4617541124068842s; --delay:-3.018864639513521s;"></div>
+    <div class="bubble" style="--size:2.4636431426962124rem; --distance:8.845309812340869rem; --position:61.03063720885393%; --time:2.5584376834181213s; --delay:-3.5518660773045094s;"></div>
+    <div class="bubble" style="--size:4.6114297639034145rem; --distance:9.805090222540903rem; --position:46.228486931851606%; --time:2.5831038487267324s; --delay:-3.111891913956276s;"></div>
+    <div class="bubble" style="--size:3.898934717239963rem; --distance:7.151199695591645rem; --position:33.6398321933192%; --time:2.5664797655910143s; --delay:-3.822362177239955s;"></div>
+    <div class="bubble" style="--size:4.443449612011474rem; --distance:8.020554521024076rem; --position:26.644374888316413%; --time:3.1379419205389865s; --delay:-3.325243578921016s;"></div>
+    <div class="bubble" style="--size:2.029964078009983rem; --distance:9.263329730494952rem; --position:47.16316370136569%; --time:2.6674723595509504s; --delay:-2.1391525843853394s;"></div>
+    <div class="bubble" style="--size:3.1725278192528714rem; --distance:9.546529636245634rem; --position:11.47490641199266%; --time:3.0593240887198005s; --delay:-3.8882766519227796s;"></div>
+    <div class="bubble" style="--size:4.205525388966946rem; --distance:8.693759830573487rem; --position:-2.198125471157071%; --time:3.5553120206746236s; --delay:-2.62827076202105s;"></div>
+    <div class="bubble" style="--size:2.710008719668263rem; --distance:8.707984627917387rem; --position:25.303534911781732%; --time:3.9712562780896485s; --delay:-3.8232215228904964s;"></div>
+    <div class="bubble" style="--size:5.487471480386478rem; --distance:6.592761552908884rem; --position:19.312981782026416%; --time:3.1750744684329106s; --delay:-3.3624739652449276s;"></div>
+    <div class="bubble" style="--size:5.1214380260272705rem; --distance:8.826292926924925rem; --position:25.45517958446888%; --time:2.5834855369121454s; --delay:-2.026778950481389s;"></div>
+    <div class="bubble" style="--size:5.884249540667693rem; --distance:6.206351263087166rem; --position:-1.8759281192880262%; --time:3.8781056348975476s; --delay:-2.1882586322904043s;"></div>
+    <div class="bubble" style="--size:3.2928193709877114rem; --distance:7.33794981058997rem; --position:76.48615005512637%; --time:3.269839117803456s; --delay:-3.9209317963431194s;"></div>
+    <div class="bubble" style="--size:3.9888416084142078rem; --distance:7.113943006629919rem; --position:21.916982276305387%; --time:2.3689244602234076s; --delay:-2.2703290460863172s;"></div>
+    <div class="bubble" style="--size:5.7309150163021005rem; --distance:8.984660840314158rem; --position:77.82438424932413%; --time:2.5370662766336576s; --delay:-2.582369520287143s;"></div>
+    <div class="bubble" style="--size:2.1562557298865643rem; --distance:7.963425750174157rem; --position:41.33473303817755%; --time:2.2633500618717197s; --delay:-2.225467285825882s;"></div>
+    <div class="bubble" style="--size:4.093879571966028rem; --distance:9.577463385033479rem; --position:19.75590816493516%; --time:2.7227622288451405s; --delay:-2.0340128850834547s;"></div>
+    <div class="bubble" style="--size:4.376715542324921rem; --distance:8.676701648232015rem; --position:33.41318674553988%; --time:3.5590019725784403s; --delay:-3.036026740869741s;"></div>
+    <div class="bubble" style="--size:2.3933598291844547rem; --distance:9.076326536615365rem; --position:101.49207211582475%; --time:2.305187959358554s; --delay:-3.1893103802479814s;"></div>
+    <div class="bubble" style="--size:4.58013348662289rem; --distance:7.199107381788306rem; --position:67.77368162014751%; --time:2.7530955127660617s; --delay:-3.9038878032395057s;"></div>
+    <div class="bubble" style="--size:2.0249111993442606rem; --distance:7.64019136656229rem; --position:45.7719175149462%; --time:3.6146087203939294s; --delay:-3.268486069046827s;"></div>
+    <div class="bubble" style="--size:5.253510681388444rem; --distance:8.267003483043723rem; --position:86.06585300650222%; --time:3.147397473586324s; --delay:-3.258246392232166s;"></div>
+    <div class="bubble" style="--size:3.3228017827135945rem; --distance:9.16200220579582rem; --position:98.48119465394393%; --time:3.2711583601749923s; --delay:-2.7067663744896446s;"></div>
+    <div class="bubble" style="--size:4.177084184420201rem; --distance:7.179833223344799rem; --position:9.956160444330953%; --time:3.009972788429956s; --delay:-2.4383510608017893s;"></div>
+    <div class="bubble" style="--size:5.943069109738894rem; --distance:8.827261180976372rem; --position:42.26616461448798%; --time:2.9977542509134096s; --delay:-2.848375436972265s;"></div>
+    <div class="bubble" style="--size:4.959617939396178rem; --distance:8.885313707093804rem; --position:23.409549103133116%; --time:3.8125157530517866s; --delay:-3.130900437814232s;"></div>
+    <div class="bubble" style="--size:2.4241802168845883rem; --distance:6.53594811569292rem; --position:26.062866284178455%; --time:3.7256149564875582s; --delay:-3.7648452420707343s;"></div>
+    <div class="bubble" style="--size:3.5712839840668247rem; --distance:8.387120302179447rem; --position:-2.8426722144787564%; --time:2.531615221670657s; --delay:-2.5649864760922405s;"></div>
+    <div class="bubble" style="--size:4.032105234135329rem; --distance:9.935909840707108rem; --position:42.07254991137784%; --time:3.6791720991254504s; --delay:-2.8568565461855613s;"></div>
+    <div class="bubble" style="--size:2.0710104699926406rem; --distance:6.218599507320804rem; --position:46.516217516258344%; --time:2.333586767938435s; --delay:-2.2675462955678256s;"></div>
+    <div class="bubble" style="--size:4.7116234992223935rem; --distance:7.920105914283728rem; --position:29.62686877664723%; --time:3.1670681825758704s; --delay:-3.601952799569897s;"></div>
+    <div class="bubble" style="--size:2.8118073560344135rem; --distance:6.242129775747296rem; --position:94.97983946286377%; --time:3.8640964117799332s; --delay:-3.786859961704257s;"></div>
+    <div class="bubble" style="--size:2.520617089210039rem; --distance:6.974670401821771rem; --position:21.48121176379567%; --time:3.064749609243553s; --delay:-2.1320513832029744s;"></div>
+    <div class="bubble" style="--size:3.512435422084592rem; --distance:9.895262974135893rem; --position:91.62604834477492%; --time:2.895655857083731s; --delay:-2.824320236357737s;"></div>
+    <div class="bubble" style="--size:3.1859866692735634rem; --distance:9.953906952234131rem; --position:66.31410815848133%; --time:3.6747051613928194s; --delay:-3.880424144774677s;"></div>
+    <div class="bubble" style="--size:5.556539426465089rem; --distance:6.030012642530693rem; --position:35.89051620553498%; --time:2.39243708269042s; --delay:-3.349404515392232s;"></div>
+    <div class="bubble" style="--size:2.547220583130618rem; --distance:8.515951720488301rem; --position:98.29311479964701%; --time:3.3201739728472113s; --delay:-2.810416042007191s;"></div>
+    <div class="bubble" style="--size:3.2483193886351724rem; --distance:8.116035310921067rem; --position:102.4314763212851%; --time:2.412353107412473s; --delay:-2.4450049309226705s;"></div>
+    <div class="bubble" style="--size:4.688956082142174rem; --distance:8.864883012547713rem; --position:45.96666302521167%; --time:3.9179318442241713s; --delay:-2.9797196374455908s;"></div>
+    <div class="bubble" style="--size:5.186210282053338rem; --distance:7.093336081981815rem; --position:55.32905352787361%; --time:2.228084762283382s; --delay:-2.598518101307046s;"></div>
+    <div class="bubble" style="--size:2.215934925684121rem; --distance:6.745032517031219rem; --position:91.69416117553617%; --time:3.9028444860234157s; --delay:-2.2420327778747913s;"></div>
+    <div class="bubble" style="--size:2.1010908690711005rem; --distance:8.221597952157442rem; --position:79.9060467999887%; --time:2.272417405072311s; --delay:-2.1156167774865393s;"></div>
+    <div class="bubble" style="--size:5.586328881941273rem; --distance:7.165868583768673rem; --position:50.66329836943266%; --time:2.021533915624831s; --delay:-2.479129491486405s;"></div>
+    <div class="bubble" style="--size:2.5762010132159245rem; --distance:7.133012922881881rem; --position:27.06042251044058%; --time:2.226591377630936s; --delay:-2.9980719465422667s;"></div>
+    <div class="bubble" style="--size:5.811675819003943rem; --distance:9.307056605031786rem; --position:46.86263539782481%; --time:2.7189710057115297s; --delay:-3.1459230688356636s;"></div>
+    <div class="bubble" style="--size:5.988739583504968rem; --distance:9.935167592396478rem; --position:46.66548294484252%; --time:3.1178667665901703s; --delay:-2.6639629936248364s;"></div>
+    <div class="bubble" style="--size:4.249917186943721rem; --distance:6.45093430554288rem; --position:91.98591718041448%; --time:3.0840939282771735s; --delay:-3.220410577267909s;"></div>
+    <div class="bubble" style="--size:5.091451084587843rem; --distance:6.382576110890569rem; --position:85.72397664069833%; --time:2.4685318327071695s; --delay:-3.7134747985118675s;"></div>
+    <div class="bubble" style="--size:3.809068000731962rem; --distance:6.013884381331486rem; --position:104.7920215637392%; --time:3.0750731145851256s; --delay:-2.4389541877333762s;"></div>
+    <div class="bubble" style="--size:4.224503636202054rem; --distance:7.462539635449677rem; --position:87.48477961258753%; --time:3.977587811209138s; --delay:-3.3504403892674026s;"></div>
+    <div class="bubble" style="--size:4.561933014630961rem; --distance:6.159302244192399rem; --position:3.5838198694653407%; --time:3.5350193657926656s; --delay:-3.0285087415534457s;"></div>
+    <div class="bubble" style="--size:4.414426739040078rem; --distance:7.9753520028897755rem; --position:14.574985091848152%; --time:3.0818240284983895s; --delay:-3.6311737217374835s;"></div>
+    <div class="bubble" style="--size:4.367053415266857rem; --distance:9.877144216709096rem; --position:32.666004237658015%; --time:3.801751920094834s; --delay:-3.7657361805487835s;"></div>
+    <div class="bubble" style="--size:3.570634544078942rem; --distance:9.053551327289929rem; --position:16.864266877227926%; --time:3.5364454287535096s; --delay:-2.5552160007400913s;"></div>
+    <div class="bubble" style="--size:3.8908095261443574rem; --distance:8.85784174679914rem; --position:97.86578344881194%; --time:2.3658367314524362s; --delay:-3.5765483458311906s;"></div>
+    <div class="bubble" style="--size:5.239362791749075rem; --distance:6.159739994711433rem; --position:65.85823796941742%; --time:2.703236807904836s; --delay:-2.7071258168753474s;"></div>
+    <div class="bubble" style="--size:4.6231196660192415rem; --distance:6.546239315705041rem; --position:84.1543509926974%; --time:3.7114983113534903s; --delay:-3.6247930187667987s;"></div>
+    <div class="bubble" style="--size:3.374344473923858rem; --distance:7.3413433094149445rem; --position:-3.150434167446954%; --time:2.3839848942121136s; --delay:-3.7590047906144526s;"></div>
+    <div class="bubble" style="--size:3.5850275558187894rem; --distance:7.9012336693379845rem; --position:12.664344679958493%; --time:3.359864472069464s; --delay:-2.391102482579176s;"></div>
+    <div class="bubble" style="--size:4.765774334064667rem; --distance:9.589502577708139rem; --position:33.70114918409529%; --time:2.433291801125466s; --delay:-2.1853002261512944s;"></div>
+    <div class="bubble" style="--size:2.644200820442835rem; --distance:9.128622991427399rem; --position:61.26174484958746%; --time:2.5023737123817695s; --delay:-3.3143824211056354s;"></div>
+    <div class="bubble" style="--size:4.692894585724853rem; --distance:6.299846215794797rem; --position:6.010868747789841%; --time:3.0704137120188926s; --delay:-2.0852288252637696s;"></div>
+    <div class="bubble" style="--size:4.453573761366385rem; --distance:6.4712550822213695rem; --position:69.7699152720966%; --time:3.112909613497536s; --delay:-2.663334955088044s;"></div>
+    <div class="bubble" style="--size:5.799044209940734rem; --distance:7.880897938589011rem; --position:40.255056278516946%; --time:3.9393365169477073s; --delay:-3.4950426055139694s;"></div>
+    <div class="bubble" style="--size:3.7989412327322745rem; --distance:9.912635427118758rem; --position:101.2868313994541%; --time:3.4563218870738885s; --delay:-3.8006722138353615s;"></div>
+    <div class="bubble" style="--size:3.6027752059116116rem; --distance:7.969257352697147rem; --position:21.149688431784966%; --time:3.870187205908785s; --delay:-3.097463220125239s;"></div>
+    <div class="bubble" style="--size:2.7329317591178555rem; --distance:6.315518719382966rem; --position:67.2918085005589%; --time:3.2846400964775784s; --delay:-3.0267902754600304s;"></div>
+    <div class="bubble" style="--size:3.986385509620283rem; --distance:9.214349839798045rem; --position:41.149062353082186%; --time:2.16308419597976s; --delay:-3.56378906180621s;"></div>
+    <div class="bubble" style="--size:4.06932370477031rem; --distance:8.44026222901148rem; --position:20.64374869300838%; --time:2.8554169637984006s; --delay:-3.011354170406762s;"></div>
+    <div class="bubble" style="--size:4.472886298389851rem; --distance:6.578952420926967rem; --position:13.45360906370708%; --time:2.8152071010824558s; --delay:-2.1247733359426237s;"></div>
+    <div class="bubble" style="--size:3.5730657634342577rem; --distance:6.1472660940596rem; --position:75.8925116092806%; --time:2.1688531941696083s; --delay:-3.2012386770105423s;"></div>
+    <div class="bubble" style="--size:3.6254543743124508rem; --distance:6.061212990780879rem; --position:40.76493151324188%; --time:3.8451784898278483s; --delay:-2.1609527042219163s;"></div>
+    <div class="bubble" style="--size:4.610120187154689rem; --distance:7.653863967961249rem; --position:6.228966892703319%; --time:3.7888044333571034s; --delay:-2.435152479821742s;"></div>
+    <div class="bubble" style="--size:4.845209787273116rem; --distance:9.1094862346466rem; --position:102.97108166613391%; --time:2.5479470439235206s; --delay:-2.3114265452335365s;"></div>
+    <div class="bubble" style="--size:4.9984487855787885rem; --distance:8.36521723754193rem; --position:11.168435290980998%; --time:2.4523216589389047s; --delay:-3.18436325700998s;"></div>
+    <div class="bubble" style="--size:2.9071171664616084rem; --distance:9.22615737454931rem; --position:13.029157540772317%; --time:3.0459736310227816s; --delay:-3.7496491557824596s;"></div>
+    <div class="bubble" style="--size:5.148953712768566rem; --distance:7.932677473494609rem; --position:85.80859921761248%; --time:3.055951878253296s; --delay:-3.080284564034105s;"></div>
+    <div class="bubble" style="--size:5.123821158915373rem; --distance:8.14436043164077rem; --position:88.57864915443992%; --time:3.148336114397401s; --delay:-2.1138725929472115s;"></div>
+    <div class="bubble" style="--size:2.348281640833993rem; --distance:6.203767817146281rem; --position:70.87034032702402%; --time:2.5523555233791115s; --delay:-3.4848221020634353s;"></div>
+  </div>
+  <div class="content">
+    <!-- First Row -->
+    <div class="footer-row links">
+      <div><b>Physics</b><a href="#">About</a><a href="#">Careers</a></div>
+      <div><b>Other Projects</b><a href="starmap\stars.html">Star simulation reproduction</a><a href="#">Rockets</a><a href="#">Rockets</a></div>
+      <div><b>Contact</b><a href="thoratsarthak20@iisertvm.ac.in">Email</a><a href="#">Instagram</a></div>
+    </div>
+
+    <!-- Second Row -->
+    <div class="footer-row bottom">
+      <div class="footer-copy">
+        <p>&copy; 2025 Sarthak Thorat. All rights reserved.</p>
+      </div>
+      <div class="footer-brand">
+        <a class="image" href="https://codepen.io/z-" target="_blank"
+           style="background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/199011/happy.svg')"></a>
+      </div>
+    </div>
+  </div>
+</div>
+<svg style="position:fixed; top:100vh">
+  <defs>
+    <filter id="blob">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"></feGaussianBlur>
+      <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="blob"></feColorMatrix>
+      <!--feComposite(in="SourceGraphic" in2="blob" operator="atop") //After reviewing this after years I can't remember why I added this but it isn't necessary for the blob effect-->
+    </filter>
+  </defs>
+</svg>
+
+    <script src="main.js"></script>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
