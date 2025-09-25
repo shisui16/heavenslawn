@@ -175,3 +175,16 @@ overlays.forEach(overlay => {
         closeModal(modalContainer);
     });
 });
+
+function loadQuartoBlog(htmlFile) {
+  const container = document.getElementById('quarto-blog-content');
+  container.innerHTML = `<iframe src="${htmlFile}" style="width:100%;height:600px;border:none;"></iframe>
+    <button onclick="showBlogList()" style="margin-top:1em;">Back to Blog List</button>`;
+  container.style.display = 'block';
+  document.querySelector('.blog-posts-list').style.display = 'none';
+}
+
+function showBlogList() {
+  document.getElementById('quarto-blog-content').style.display = 'none';
+  document.querySelector('.blog-posts-list').style.display = 'block';
+}
