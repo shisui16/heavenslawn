@@ -1650,3 +1650,55 @@ textarea.form-input {
     bottom: var(--distance, 10rem);
   }
 }
+
+
+/* Force Quarto blog content to match your site */
+#quarto-blog-content,
+#quarto-blog-content body,
+#quarto-blog-content .quarto-content,
+#quarto-blog-content .content {
+  background: rgb(81, 130, 155) !important;
+  color: #e0e0e0 !important;
+  font-family: 'Poppins', sans-serif !important;
+  border-radius: 1em;
+  padding: 2em;
+}
+
+/* Headings */
+#quarto-blog-content h1,
+#quarto-blog-content h2,
+#quarto-blog-content h3,
+#quarto-blog-content h4 {
+  color: #ffd700 !important;
+  font-family: inherit !important;
+}
+
+/* Links */
+#quarto-blog-content a {
+  color: #00bfff !important;
+  text-decoration: underline !important;
+}
+
+/* Code blocks */
+#quarto-blog-content pre,
+#quarto-blog-content code {
+  background: #222 !important;
+  color: #ffd700 !important;
+  border-radius: 4px !important;
+  padding: 0.2em 0.4em !important;
+}
+
+/* Images */
+#quarto-blog-content img {
+  max-width: 100% !important;
+  border-radius: 8px !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+}
+
+/* Columns and indents */
+#quarto-blog-content .columns,
+#quarto-blog-content .column,
+#quarto-blog-content .hanging-indent {
+  background: transparent !important;
+  color: inherit !important;
+}

@@ -95,7 +95,7 @@
                     <li class="navbar-item"><button class="navbar-link active" data-nav-link>About</button></li>
                     <li class="navbar-item"><button class="navbar-link" data-nav-link>Resume</button></li>
                     <li class="navbar-item"><button class="navbar-link" data-nav-link>Portfolio</button></li>
-                    <li class="navbar-item"><button class="navbar-link" data-nav-link>Blog</button></li>
+                    <li class="navbar-item"><a href="blog.html"><button class="navbar-link" data-nav-link>Blog</button></a></li>
                     <li class="navbar-item"><button class="navbar-link" data-nav-link>Contact</button></li>
                 </ul>
             </nav>
@@ -200,7 +200,7 @@
 
                                 <h4 class="h4 testimonials-item-title" data-testimonials-title>Emily Evans</h4>
 
-                                <div class="testimonials-text" data-testimonials-text>
+                                <div class="testimonials-text" data-modal-text>
                                     <p>I couldn't be happier with the website that Richard created for us. His attention to detail and creativity is unmatched. Our clients frequently compliment the design, and it has significantly improved our brand image.</p>
                                 </div>
                             </div>
@@ -711,19 +711,19 @@
                 <section class="contact-form">
                     <h3 class="h3 form-title">Contact Form</h3>
 
-                    <form action="#" class="form" data-form>
-                        <div class="input-wrapper">
-                            <input type="text" name="fullname" class="form-input" placeholder="Full name" required data-form-input>
-                            <input type="email" name="email" class="form-input" placeholder="Email Address" required data-form-input>
-                        </div>
-
-                        <textarea name="message" class="form-input" placeholder="Your Message" required data-form-input=""></textarea>
-
-                        <button class="form-btn" type="submit" disabled data-form-btn>
-                            <ion-icon name="paper-plane"></ion-icon>
-                            <span>Send Message</span>
-                        </button>
-                    </form>
+                    <form id="contactForm" action="https://api.web3forms.com/submit" class="form" method="post" data-form>
+  <input type="hidden" name="access_key" value="6394c318-2dec-480b-8656-8846855376b6">
+  <div class="input-wrapper">
+    <input type="text" name="fullname" class="form-input" placeholder="Full name" required data-form-input>
+    <input type="email" name="email" class="form-input" placeholder="Email Address" required data-form-input>
+  </div>
+  <textarea name="message" class="form-input" placeholder="Your Message" required data-form-input=""></textarea>
+  <button class="form-btn" type="submit" data-form-btn>
+    <ion-icon name="paper-plane"></ion-icon>
+    <span>Send Message</span>
+  </button>
+</form>
+<div id="form-success" style="display:none; color:rgb(194, 219, 194); margin-top:1em;">Thank you! Your message has been sent.</div>
                 </section>
             </article>
         </div>
@@ -893,6 +893,45 @@
     <script src="main.js"></script>
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-</body>ript nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const hash = window.location.hash.replace('#', '');
+  if (hash) {
+    // Deactivate all articles
+    document.querySelectorAll('article').forEach(a => a.classList.remove('active'));
+    // Activate the requested section
+    const section = document.querySelector(`article[data-page="${hash}"]`);
+    if (section) section.classList.add('active');
+  }
+});
+</script>
+<script>
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const form = e.target;
+  const formData = new FormData(form);
+
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    body: formData,
+    headers: { 'Accept': 'application/json' }
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      document.getElementById('form-success').style.display = 'block';
+      form.reset();
+    } else {
+      alert('There was an error sending your message.');
+    }
+  })
+  .catch(() => {
+    alert('There was an error sending your message.');
+  });
+});
+</script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+</body>
 </html>
 </html>

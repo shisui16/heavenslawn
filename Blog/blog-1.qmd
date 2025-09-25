@@ -1,0 +1,34 @@
+---
+title: "Propogation of Errors"
+date: 2025-09-23
+categories: [Mathematical Methods]
+
+---
+
+
+
+Whenever we measure anything in Science- whether it may be the length of an object, temperature of a room, or the speed of a car- there is always some uncertainty in our measurement. We call this uncertainty an **error**. This does not refer to a mistake but rather a limitation of our own tools or methods for doing any measurements. 
+
+Now what if using these measurements that we acquired with tools, we have to calculate something else? For example- we measure the length of a cube but to find the Volume of the cube would require us to make a calculation using the measurement of the edge of the cube that we already acquired. It is easy to see that this error then would be carried into the calculation and we would end up having an error/uncertainty in the final Volume too. For this purpose we need a more proper analytical reasoning of how errors are carried in these situations.
+
+![Measurement of length of a cube](blog-1_files/measurement.jpg)
+
+So how do we more properly define this Propogation of Errors? 
+
+**Propagation of Errors** is the process of detemining how uncertainties in measured quantities affect the uncertainty in a calculated result. It helps us figure out how uncertain or how imprecise our calculated result might really be.
+
+Propogation of Errors refer to how errors/uncertainties from different measurements affect the errors for a dependent quanitity. In any science/experiment based on measurements, this concept of Propogation of errors is pretty crucial to finding precision for certain quantities that may not be possible to measure directly, for eg - The mass of neutrinos through decay experiments.(The reason I found reading this necessary in the first place) 
+
+```{=html}
+<style>
+body, .quarto-light, .quarto-content, .content {
+  background: #51829b !important;
+  color: #e0e0e0 !important;
+  font-family: 'Poppins', sans-serif !important;
+}
+/* Target the main title */
+h1.title, .quarto-title h1, h1 {
+  color: #000000ff !important; /* Gold or any color you prefer */
+}
+</style>
+```
