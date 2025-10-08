@@ -236,7 +236,7 @@ article { display: none; }
 
 
 .avatar-box {
-    background: rgb(246, 153, 92);
+    background: rgb(61, 72, 82);
     border-radius: 20px;
 }
 
@@ -1660,8 +1660,11 @@ textarea.form-input {
   background: rgb(81, 130, 155) !important;
   color: #e0e0e0 !important;
   font-family: 'Poppins', sans-serif !important;
-  border-radius: 1em;
-  padding: 2em;
+  border-radius: 0.1em;
+  padding: 3em 2em;
+  width: 100%;
+  box-sizing: border-box;
+
 }
 
 /* Headings */
@@ -1701,4 +1704,20 @@ textarea.form-input {
 #quarto-blog-content .hanging-indent {
   background: transparent !important;
   color: inherit !important;
+}
+
+
+.achievements-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-bottom: 10px;
+}
+.achievements-item {
+    
+    padding: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 15px;
 }
