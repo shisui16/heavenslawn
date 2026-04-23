@@ -1,5 +1,5 @@
 /**
- * main.js — Integral Trainer
+ * main.js — Integral Trainer (with localStorage persistence)
  *
  * Architecture:
  *   problems.js data → problem state machine → validator → UI renderer
@@ -141,17 +141,49 @@ const PROBLEMS = [
 ];
 
 // ─────────────────────────────────────────────
-// 2. STATE
+// 2. STATE & PERSISTENCE
 // ─────────────────────────────────────────────
+
+const STORAGE_KEY = 'integralTrainerState';
 
 const state = {
   currentIndex: 0,
-  order: [],          // shuffled indices per difficulty tier
+  order: [],          // shuffled indices of the *filtered* problem pool
   streak: 0,
   correct: 0,
   attempted: 0,
   hintShown: false,
+  completedSet: new Set(),  // indices of problems correctly answered ever
 };
+
+function saveState() {
+  const data = {
+    order: state.order,
+    currentIndex: state.currentIndex,
+    streak: state.streak,
+    correct: state.correct,
+    attempted: state.attempted,
+    completedSet: Array.from(state.completedSet),
+  };
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+
+function loadState() {
+  const json = localStorage.getItem(STORAGE_KEY);
+  if (!json) return null;
+  try {
+    const data = JSON.parse(json);
+    // Convert completedSet back to a Set
+    data.completedSet = new Set(data.completedSet || []);
+    return data;
+  } catch {
+    return null;
+  }
+}
+
+function clearSavedState() {
+  localStorage.removeItem(STORAGE_KEY);
+}
 
 // ─────────────────────────────────────────────
 // 3. DOM REFERENCES
@@ -174,49 +206,37 @@ const DOM = {
   problemNumber:   $("problem-number"),
   difficultyBadge: $("difficulty-badge"),
   poolSize:        $("problem-pool-size"),
+  card:            $("problem-card"),
+  // Optional reset button (if you add it to the HTML)
+  resetBtn:        $("reset-btn"),
 };
 
 // ─────────────────────────────────────────────
 // 4. VALIDATION (symbolic, via Nerdamer)
 // ─────────────────────────────────────────────
 
-/**
- * Validates user's antiderivative by differentiating it and comparing
- * to the original integrand. Returns {valid: bool, error?: string}.
- */
 function validateAnswer(userAnswer, integrand) {
   if (!userAnswer.trim()) return { valid: false, error: "Please enter an answer." };
 
   try {
-    // Strip arbitrary constant — user may write "+ C" or not
-    // Nerdamer treats C as a variable, so we remove it before differentiating
     const cleaned = userAnswer
-      .replace(/\+\s*[Cc]\s*$/, "")   // trailing + C
-      .replace(/\-\s*[Cc]\s*$/, "")   // trailing - C
-      .replace(/\s*[Cc]\s*$/, "")     // just C
+      .replace(/\+\s*[Cc]\s*$/, "")
+      .replace(/\-\s*[Cc]\s*$/, "")
+      .replace(/\s*[Cc]\s*$/, "")
       .trim();
 
     if (!cleaned) {
-      // User typed only "C" — derivative is 0, integrand must also be 0
       const integrandVal = nerdamer(integrand).evaluate();
       const isZero = nerdamer(`simplify(${integrand})`).text() === "0";
       return { valid: isZero, error: isZero ? null : "Your answer differentiates to 0, but the integrand is not 0." };
     }
 
-    // Differentiate user's answer with respect to x
     const derivative = nerdamer(`diff(${cleaned}, x)`);
-
-    // Compute the difference: diff(user) − integrand
     const diff = nerdamer(`simplify(${derivative.text()} - (${integrand}))`);
-
-    // If the symbolic difference is 0, the answer is correct
     const diffText = diff.text().replace(/\s/g, "");
     const isZero = diffText === "0" || diffText === "0.0";
-
     return { valid: isZero };
-
   } catch (e) {
-    // Nerdamer throws on unparseable input
     return {
       valid: false,
       error: `Couldn't parse your input. Check your syntax. (${e.message ?? "parse error"})`,
@@ -242,7 +262,6 @@ function renderKaTeX(latex, container) {
 function renderInlineKaTeX(expression, container) {
   if (!expression.trim()) { container.innerHTML = ""; return; }
   try {
-    // Convert simple expressions to LaTeX-ish format for preview
     katex.render(expression, container, {
       throwOnError: false,
       displayMode: false,
@@ -263,7 +282,7 @@ function hideFeedback() {
 
 function bumpStat(el) {
   el.classList.remove("bump");
-  void el.offsetWidth; // reflow to restart animation
+  void el.offsetWidth;
   el.classList.add("bump");
   setTimeout(() => el.classList.remove("bump"), 300);
 }
@@ -275,14 +294,14 @@ function updateStats() {
 }
 
 function updateProgress() {
-  const easyDone   = state.order.filter(i => PROBLEMS[i].difficulty === "easy"   && i < state.currentIndex).length;
-  const totalEasy  = PROBLEMS.filter(p => p.difficulty === "easy").length;
-  const pct = Math.min(100, (state.correct / PROBLEMS.length) * 100);
+  const total = PROBLEMS.length;
+  const done = state.completedSet.size;
+  const pct = total > 0 ? Math.min(100, (done / total) * 100) : 0;
   DOM.progressFill.style.width = pct + "%";
 }
 
 // ─────────────────────────────────────────────
-// 6. PROBLEM LOADING
+// 6. PROBLEM LOADING & FILTERING
 // ─────────────────────────────────────────────
 
 function shuffleArray(arr) {
@@ -294,39 +313,87 @@ function shuffleArray(arr) {
   return a;
 }
 
-function buildOrder() {
-  // Show easy problems first, then medium, then hard
-  const easy   = PROBLEMS.map((p,i)=>({i,p})).filter(x=>x.p.difficulty==="easy")  .map(x=>x.i);
-  const medium = PROBLEMS.map((p,i)=>({i,p})).filter(x=>x.p.difficulty==="medium").map(x=>x.i);
-  const hard   = PROBLEMS.map((p,i)=>({i,p})).filter(x=>x.p.difficulty==="hard")  .map(x=>x.i);
-  return [...shuffleArray(easy), ...shuffleArray(medium), ...shuffleArray(hard)];
+/**
+ * Build the order array from the list of available problem indices.
+ * Keeps the difficulty ordering: easy → medium → hard, shuffled within each tier.
+ */
+function buildOrderFromIndices(indices) {
+  const map = {
+    easy: [],
+    medium: [],
+    hard: [],
+  };
+  for (const idx of indices) {
+    map[PROBLEMS[idx].difficulty].push(idx);
+  }
+  return [
+    ...shuffleArray(map.easy),
+    ...shuffleArray(map.medium),
+    ...shuffleArray(map.hard),
+  ];
 }
 
 function loadProblem(index) {
+  // If completed set is everything, show special message
+  const availableIndices = PROBLEMS.reduce((acc, _, i) => {
+    if (!state.completedSet.has(i)) acc.push(i);
+    return acc;
+  }, []);
+
+  if (availableIndices.length === 0) {
+    // All problems completed – display congratulations
+    DOM.integralDisplay.innerHTML = `<div style="text-align:center; padding:2rem;">
+      <span style="font-size:2rem;">🎉</span>
+      <p style="font-family:var(--font-mono); color:var(--accent); margin-top:0.5rem;">
+        You've solved every integral!
+      </p>
+    </div>`;
+    DOM.difficultyBadge.style.display = "none";
+    DOM.problemNumber.textContent = "Complete";
+    DOM.answerInput.disabled = true;
+    DOM.checkBtn.disabled = true;
+    DOM.nextBtn.disabled = true;
+    DOM.hintBtn.disabled = true;
+    DOM.feedback.className = "feedback";
+    DOM.preview.innerHTML = "";
+    hideFeedback();
+    return;
+  }
+
+  // If the loaded index is out of bounds, wrap to first unsolved
+  if (index >= state.order.length) {
+    state.currentIndex = 0;
+    index = 0;
+    saveState();
+  }
+
   const problemIdx = state.order[index % state.order.length];
   const problem = PROBLEMS[problemIdx];
 
-  // Animate transition
   DOM.integralDisplay.classList.add("changing");
   setTimeout(() => {
     renderKaTeX(problem.latex, DOM.integralDisplay);
     DOM.integralDisplay.classList.remove("changing");
   }, 200);
 
-  // Update badge
   DOM.difficultyBadge.textContent = problem.difficulty.charAt(0).toUpperCase() + problem.difficulty.slice(1);
   DOM.difficultyBadge.className   = `difficulty-badge ${problem.difficulty}`;
+  DOM.difficultyBadge.style.display = ""; // ensure visible
 
   DOM.problemNumber.textContent = `Problem ${index + 1}`;
 
-  // Clear state
-  DOM.answerInput.value   = "";
-  DOM.preview.innerHTML   = "";
+  // Enable inputs (in case they were disabled after completion)
+  DOM.answerInput.disabled = false;
+  DOM.checkBtn.disabled = false;
+  DOM.nextBtn.disabled = false;
+  DOM.hintBtn.disabled = false;
+
+  DOM.answerInput.value = "";
+  DOM.preview.innerHTML = "";
   DOM.hintBtn.textContent = "Show Hint";
-  state.hintShown         = false;
+  state.hintShown = false;
   hideFeedback();
 
-  // Remove old hint block if present
   const oldHint = document.querySelector(".hint-block");
   if (oldHint) oldHint.remove();
 
@@ -355,10 +422,10 @@ function handleSubmit() {
   const result = validateAnswer(userAnswer, problem.integrand);
 
   if (result.error) {
-    // Syntax error
     showFeedback("error", `⚠ ${result.error}`);
     state.streak = 0;
     updateStats();
+    saveState();
     return;
   }
 
@@ -368,6 +435,9 @@ function handleSubmit() {
     state.streak++;
     bumpStat(DOM.scoreCount);
     bumpStat(DOM.streakCount);
+
+    // Mark this problem as completed
+    state.completedSet.add(problemIdx);
   } else {
     showFeedback("incorrect", "✗ Not quite — differentiate your answer and check it equals the integrand.");
     state.streak = 0;
@@ -377,6 +447,19 @@ function handleSubmit() {
 
   updateStats();
   updateProgress();
+  saveState();
+
+  // If all problems are now completed, rebuild the order (empty) and reload to show the "complete" UI
+  const remaining = PROBLEMS.reduce((acc, _, i) => {
+    if (!state.completedSet.has(i)) acc.push(i);
+    return acc;
+  }, []);
+  if (remaining.length === 0) {
+    state.order = [];
+    state.currentIndex = 0;
+    loadProblem(0); // will show completion message
+    saveState();
+  }
 }
 
 // ─────────────────────────────────────────────
@@ -393,7 +476,6 @@ function handleHint() {
   hintEl.className = "hint-block";
   hintEl.textContent = `💡 ${problem.hint}`;
 
-  // Insert before card-footer
   const footer = document.querySelector(".card-footer");
   footer.parentNode.insertBefore(hintEl, footer);
 
@@ -410,9 +492,7 @@ function handleInputPreview(e) {
   const val = e.target.value.trim();
   if (!val) { DOM.preview.innerHTML = ""; return; }
 
-  // Try to render as KaTeX — best effort
   try {
-    // Very basic transformation for preview readability
     const previewLatex = val
       .replace(/\*/g, " \\cdot ")
       .replace(/\^(\d+)/g, "^{$1}")
@@ -436,15 +516,36 @@ function handleInputPreview(e) {
 // ─────────────────────────────────────────────
 
 function init() {
-  // Build ordered problem list
-  state.order = buildOrder();
-  state.currentIndex = 0;
+  // Try to load previous state
+  const saved = loadState();
+  if (saved) {
+    state.streak = saved.streak || 0;
+    state.correct = saved.correct || 0;
+    state.attempted = saved.attempted || 0;
+    state.completedSet = saved.completedSet || new Set();
+    // Rebuild order from all problems **not** in completedSet
+    const availableIndices = PROBLEMS.reduce((acc, _, i) => {
+      if (!state.completedSet.has(i)) acc.push(i);
+      return acc;
+    }, []);
+    state.order = buildOrderFromIndices(availableIndices);
+    state.currentIndex = 0; // start fresh on the reduced set
+  } else {
+    // Fresh state
+    state.completedSet = new Set();
+    const allIndices = PROBLEMS.map((_, i) => i);
+    state.order = buildOrderFromIndices(allIndices);
+    state.currentIndex = 0;
+    state.streak = 0;
+    state.correct = 0;
+    state.attempted = 0;
+  }
 
   // Footer info
   DOM.poolSize.textContent = `${PROBLEMS.length}`;
 
-  // Load first problem
-  loadProblem(0);
+  // Load first problem (will handle empty remaining set)
+  loadProblem(state.currentIndex);
   updateStats();
   updateProgress();
 
@@ -454,6 +555,7 @@ function init() {
   DOM.nextBtn.addEventListener("click", () => {
     state.currentIndex++;
     loadProblem(state.currentIndex);
+    saveState();
   });
 
   DOM.hintBtn.addEventListener("click", handleHint);
@@ -463,11 +565,23 @@ function init() {
   });
 
   DOM.answerInput.addEventListener("input", handleInputPreview);
+
+  // Optional reset button (if you added it to the HTML)
+  if (DOM.resetBtn) {
+    DOM.resetBtn.addEventListener("click", () => {
+      if (confirm("Reset all progress? You'll start over from the beginning.")) {
+        clearSavedState();
+        location.reload();
+      }
+    });
+  }
+
+  // Save initial state (to persist even if they don't answer any)
+  saveState();
 }
 
 // Wait for KaTeX and Nerdamer to be available
 window.addEventListener("load", () => {
-  // Small guard: ensure globals loaded from CDN
   if (typeof katex === "undefined" || typeof nerdamer === "undefined") {
     document.body.innerHTML = `<div style="color:red;padding:2rem;font-family:monospace">
       Error: Failed to load KaTeX or Nerdamer from CDN. Check your internet connection.
