@@ -1,0 +1,14 @@
+{
+  "name": "integral-trainer",
+  "version": "1.0.0",
+  "description": "Client-side integral practice app with symbolic answer validation",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.2.0"
+  }
+}

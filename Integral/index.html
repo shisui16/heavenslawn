@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>∫ Integral Trainer</title>
+
+  <!-- KaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+
+  <!-- Nerdamer (symbolic math engine) -->
+  <script src="https://cdn.jsdelivr.net/npm/nerdamer@1.1.13/nerdamer.core.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/nerdamer@1.1.13/Algebra.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/nerdamer@1.1.13/Calculus.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/nerdamer@1.1.13/Solve.js"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="page-bg"></div>
+
+  <header>
+    <div class="logo">∫</div>
+    <div class="title-block">
+      <h1>Integral Trainer</h1>
+      <p class="subtitle">Symbolic answer checking — no string matching</p>
+    </div>
+    <div class="header-stats">
+      <div class="stat">
+        <span class="stat-val" id="streak-count">0</span>
+        <span class="stat-label">streak</span>
+      </div>
+      <div class="stat">
+        <span class="stat-val" id="score-count">0</span>
+        <span class="stat-label">correct</span>
+      </div>
+      <div class="stat">
+        <span class="stat-val" id="total-count">0</span>
+        <span class="stat-label">attempted</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="card" id="problem-card">
+
+      <div class="difficulty-badge" id="difficulty-badge">Easy</div>
+
+      <div class="problem-number" id="problem-number">Problem 1</div>
+
+      <div class="integral-display" id="integral-display">
+        <!-- KaTeX renders here -->
+      </div>
+
+      <div class="input-group">
+        <label for="answer-input">Your answer</label>
+        <div class="input-row">
+          <input
+            type="text"
+            id="answer-input"
+            placeholder="e.g.  x^3/3 + C"
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <button id="check-btn" class="btn btn-primary">Check</button>
+        </div>
+        <div class="input-hint">Use ^ for powers, * for multiplication, sqrt() for roots</div>
+      </div>
+
+      <div class="preview-row">
+        <span class="preview-label">Preview:</span>
+        <span id="answer-preview"></span>
+      </div>
+
+      <div class="feedback" id="feedback" aria-live="polite"></div>
+
+      <div class="card-footer">
+        <button id="next-btn" class="btn btn-secondary">Next Problem →</button>
+        <button id="hint-btn" class="btn btn-ghost">Show Hint</button>
+      </div>
+
+    </div>
+
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Answers validated via symbolic differentiation · <span id="problem-pool-size"></span> problems loaded</p>
+  </footer>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>
