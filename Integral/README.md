@@ -3,7 +3,7 @@
 A minimal, production-ready web app for practicing integrals with **symbolic answer validation** — no string matching.
 
 ## How Validation Works
-
+hi
 When a user submits an answer `f(x)`:
 1. Nerdamer differentiates `f(x)` with respect to `x`
 2. The result is subtracted from the original integrand
