@@ -622,7 +622,7 @@ export const chapter1 = {
         <p>
           Let $q_0$ be the equilibrium position, and $x = q - q_0$ the small displacement. Expanding
           $U(q)$ in a Taylor series about $q_0$:
-          $$U(q) = U(q_0) + \underbrace{U'(q_0)}_{=\, 0 \text{ (equilibrium)}} x + \frac{1}{2}U''(q_0)x^2 + \cdots$$
+          $$U(q) = U(q_0) + \\underbrace{U'(q_0)}_{=\, 0 \text{ (equilibrium)}} x + \frac{1}{2}U''(q_0)x^2 + \cdots$$
           Setting $U(q_0) = 0$ (reference energy) and defining $k = U''(q_0) > 0$:
           $$U \approx \frac{1}{2}kx^2$$
           Similarly, the kinetic energy coefficient $a(q)$ evaluated at $q_0$ gives $a(q_0) \equiv m$
@@ -1391,13 +1391,13 @@ export const chapter1 = {
           Consider a particle subject to a slowly varying field $U(\mathbf{r})$ and a rapidly
           oscillating force $\mathbf{f}(\mathbf{r})\cos(\gamma t)$ with $\gamma \gg 1/T$
           (where $T$ is the timescale of slow motion). The particle's trajectory $\mathbf{r}(t)$
-          separates into a slow part $\bar{\mathbf{r}}(t)$ and rapid oscillations $\boldsymbol{\xi}(t)$:
-          $$\mathbf{r}(t) = \bar{\mathbf{r}}(t) + \boldsymbol{\xi}(t)$$
+          separates into a slow part $\bar{\mathbf{r}}(t)$ and rapid oscillations $\boldsymbol{\\xi}(t)$:
+          $$\mathbf{r}(t) = \bar{\mathbf{r}}(t) + \boldsymbol{\\xi}(t)$$
         </p>
         <p>
-          The rapid oscillation is $\boldsymbol{\xi} \approx -\mathbf{f}/m\gamma^2$ (leading order).
+          The rapid oscillation is $\boldsymbol{\\xi} \approx -\mathbf{f}/m\gamma^2$ (leading order).
           Averaging the equations of motion over the rapid oscillation and expanding to first order in
-          $\boldsymbol{\xi}$, one finds that the slow motion is governed by an
+          $\boldsymbol{\\xi}$, one finds that the slow motion is governed by an
           <strong>effective potential</strong>:
           $$U_{\text{eff}} = U + \frac{|\mathbf{f}|^2}{4m\gamma^2}$$
           The time-averaged kinetic energy of the rapid oscillations acts as an additional (always
