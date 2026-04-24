@@ -3,8 +3,8 @@
  * main.js – Core application controller
  */
 
-import { chapter1 } from "./chapters/ch1.js";
-import { chapter2 } from "./chapters/ch2.js";
+import { chapter1 } from "./ch1.js";
+import { chapter2 } from "./ch2.js";
 
 // ─── Chapter Registry ──────────────────────────────────────────────────────
 // Add new chapters here by importing and registering them
