@@ -6,10 +6,12 @@
 import { analyticalMechanics } from "./books/analyticalMechanics.js";
 import { calculus            } from "./books/calculus.js";
 import { electromagnetism    } from "./books/electromagnetism.js";
+import { topologyCondensed    } from "./books/topocond.js";
+
 
 // ─── Book Registry ────────────────────────────────────────────────────────
 // To add a new book: import it above, then push it here.
-const BOOKS = [analyticalMechanics, calculus, electromagnetism];
+const BOOKS = [analyticalMechanics, calculus, electromagnetism, topologyCondensed];
 
 // ─── State ────────────────────────────────────────────────────────────────
 const state = {
