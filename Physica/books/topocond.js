@@ -1683,7 +1683,7 @@ export const supplementary = {
 // COURSE INDEX for navigation
 // ═══════════════════════════════════════════════════════════════════════════
 
-export const topologyCourse = {
+export const topologyCondensed = {
   title: "Topology & Condensed Matter — Complete Crash Course",
   subtitle: "Based on NPTEL lectures by Prof. S. Basu",
   weeks: [week1, week2, week3, week4, week5, week6, week7, week8, supplementary],
