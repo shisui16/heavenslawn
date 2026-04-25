@@ -3,15 +3,14 @@
  * Two-level hierarchy: Books → Chapters → Items
  */
 
-import { analyticalMechanics } from "./books/analyticalMechanics.js";
-import { calculus            } from "./books/calculus.js";
-import { electromagnetism    } from "./books/electromagnetism.js";
-import { topologyCondensed    } from "./books/topocond.js";
-
+import { analyticalMechanics      } from "./books/analyticalMechanics.js";
+import { calculus                 } from "./books/calculus.js";
+import { electromagnetism         } from "./books/electromagnetism.js";
+import { topologyCondensedMatter  } from "./books/topologyCondensedMatter.js";
 
 // ─── Book Registry ────────────────────────────────────────────────────────
 // To add a new book: import it above, then push it here.
-const BOOKS = [analyticalMechanics, calculus, electromagnetism, topologyCondensed];
+const BOOKS = [analyticalMechanics, calculus, electromagnetism, topologyCondensedMatter];
 
 // ─── State ────────────────────────────────────────────────────────────────
 const state = {
