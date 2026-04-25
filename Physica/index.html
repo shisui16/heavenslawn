@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Physica — Learning Engine</title>
+
+  <!-- KaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+  <!-- Nerdamer -->
+  <script src="https://cdn.jsdelivr.net/npm/nerdamer@1.1.13/nerdamer.core.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/nerdamer@1.1.13/Algebra.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/nerdamer@1.1.13/Calculus.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/nerdamer@1.1.13/Solve.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="overlay" id="overlay"></div>
+
+  <!-- ── Sidebar ──────────────────────────────────────────────────────────── -->
+  <aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-header">
+      <div class="logo">
+        <span class="logo-sym">∮</span>
+        <span class="logo-name">Physica</span>
+      </div>
+      <button class="close-btn" id="sidebarClose" aria-label="Close">✕</button>
+    </div>
+
+    <!-- Book selector -->
+    <div class="sb-section">
+      <span class="sb-label">BOOK</span>
+      <select id="bookSelect" class="styled-select"></select>
+    </div>
+
+    <!-- Chapter list -->
+    <div class="sb-section chapters-section">
+      <span class="sb-label">CHAPTERS</span>
+      <nav id="chapterNav" class="chapter-nav"></nav>
+    </div>
+
+    <!-- Session stats -->
+    <div class="sb-section sb-stats">
+      <div class="stat-row">
+        <span class="sb-label">STREAK</span>
+        <span class="streak-val"><span id="streakCount">0</span> 🔥</span>
+      </div>
+      <div class="stat-row" style="margin-top:10px">
+        <span class="sb-label">SCORE</span>
+        <span class="score-val" id="sidebarScore">0</span>
+      </div>
+    </div>
+
+    <!-- Mode buttons -->
+    <div class="sb-section sb-modes">
+      <button class="mode-btn active" id="navStudy">📖 Study Mode</button>
+      <button class="mode-btn" id="navReview">⚠ Review Errors</button>
+    </div>
+
+  </aside>
+
+  <!-- ── Main ─────────────────────────────────────────────────────────────── -->
+  <main class="main" id="main">
+
+    <header class="topbar">
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="breadcrumb">
+        <span id="bcBook">Book</span>
+        <span class="bc-sep">›</span>
+        <span id="bcChapter">Chapter</span>
+      </div>
+      <span class="item-pill" id="itemCounter">1 / 1</span>
+    </header>
+
+    <!-- Full-width progress strip -->
+    <div class="progress-strip">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <!-- Content stage -->
+    <div class="stage" id="stage">
+
+      <!-- Theory card -->
+      <div class="card text-card hidden" id="textCard">
+        <div class="type-tag">Theory</div>
+        <div class="text-body" id="textBody"></div>
+        <div class="card-actions">
+          <button class="btn btn-ghost" id="textPrev">← Prev</button>
+          <button class="btn btn-primary" id="textNext">Continue →</button>
+        </div>
+      </div>
+
+      <!-- Question card -->
+      <div class="card question-card hidden" id="questionCard">
+        <div class="type-tag" id="questionTypeTag">MCQ</div>
+        <div class="question-text" id="questionBody"></div>
+
+        <div class="options-list" id="mcqOptions"></div>
+        <div class="options-list" id="msqOptions"></div>
+
+        <div class="num-wrap hidden" id="numericWrap">
+          <input type="number" id="numericValue" class="field field-num" placeholder="Value" step="any" />
+          <input type="text"   id="numericUnit"  class="field field-unit" placeholder="Unit  e.g. m/s" />
+        </div>
+
+        <div class="sym-wrap hidden" id="symbolicWrap">
+          <p class="sym-hint">Enter antiderivative — omit the +C</p>
+          <input type="text" id="symbolicInput" class="field field-sym" placeholder="e.g.  x^3/3 + 2*x" />
+          <div class="sym-preview" id="symPreview"></div>
+        </div>
+
+        <div class="feedback hidden" id="feedback">
+          <span class="fb-icon" id="feedbackIcon"></span>
+          <div class="fb-text"  id="feedbackText"></div>
+        </div>
+
+        <div class="card-actions">
+          <button class="btn btn-ghost"           id="questionPrev">← Prev</button>
+          <button class="btn btn-submit"          id="submitBtn">Submit</button>
+          <button class="btn btn-primary hidden"  id="nextBtn">Next →</button>
+        </div>
+      </div>
+
+    </div><!-- /stage -->
+
+    <!-- Chapter completion overlay -->
+    <div class="completion hidden" id="completion">
+      <div class="comp-box">
+        <div class="comp-icon">🎓</div>
+        <h2 class="comp-title">Chapter Complete!</h2>
+        <div class="comp-stats" id="completionStats"></div>
+        <div class="comp-actions">
+          <button class="btn btn-ghost"    id="restartBtn">Restart</button>
+          <button class="btn btn-primary"  id="nextChapterBtn">Next Chapter →</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>
