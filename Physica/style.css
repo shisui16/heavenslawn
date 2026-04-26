@@ -513,3 +513,14 @@ body {
   .field-unit { width: 100%; }
   .comp-box { padding: 38px 26px; }
 }
+
+/* Desktop sidebar collapse */
+.sidebar.hidden-desktop {
+  transform: translateX(-100%);
+  transition: transform 0.28s var(--ease);
+}
+
+.main.wide {
+  margin-left: 0;
+  transition: margin-left 0.28s var(--ease);
+}

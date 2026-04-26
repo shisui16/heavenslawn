@@ -44,11 +44,11 @@ export const neutrinoPhysics = {
             <h2>1.1 The Beta Decay Puzzle and Pauli's Desperate Remedy</h2>
             <p>
               In nuclear beta decay, a parent nucleus transitions to a daughter nucleus with the simultaneous
-              emission of an electron: \( (A,Z) \to (A,Z+1) + e^- \). In the 1910s–1920s, the expectation
+              emission of an electron: \\( (A,Z) \to (A,Z+1) + e^- \\). In the 1910s-1920s, the expectation
               was that this was a two-body process with the electron emerging at a uniquely fixed energy
-              \( E_e = (M_i^2 - M_f^2 + m_e^2)/(2M_i) \). Instead, experiments by Chadwick (1914) and
+              \\( E_e = (M_i^2 - M_f^2 + m_e^2)/(2M_i) \\). Instead, experiments by Chadwick (1914) and
               later Ellis and Wooster (1927) showed that the emitted electron carries a <em>continuous</em>
-              energy spectrum ranging from near zero up to some endpoint \( E_0 \). The missing energy appeared
+              energy spectrum ranging from near zero up to some endpoint \\( E_0 \\). The missing energy appeared
               to violate conservation of energy and momentum — so much so that Niels Bohr publicly contemplated
               abandoning these laws in the nucleus.
             </p>
@@ -88,7 +88,7 @@ export const neutrinoPhysics = {
               currently holds the record: \( m_{\nu_e} < 0.45\,\text{eV}\) (90% C.L., 2022), with a
               design goal of \( 0.2\,\text{eV} \).
             </p>
-            <p style="background:#f0f7ff; border-left:4px solid #3b82f6; padding:10px 14px; border-radius:4px;">
+            <p style="background: #1a314a; border-left:4px solid #3b82f6; padding:10px 14px; border-radius:4px;">
               <strong>Research note:</strong> The Kurie plot is sensitive to the combination
               \( m_\beta^2 = \sum_i |U_{ei}|^2 m_i^2 \), not to a single flavour mass. This is because
               \( \nu_e \) is a coherent superposition of mass eigenstates \( \nu_i \) with amplitudes
@@ -219,7 +219,7 @@ export const neutrinoPhysics = {
               (above the \( Z \) threshold) or <em>sterile</em> (no \( SU(2)_L \) coupling, no NC
               interaction with the \( Z^0 \)). This measurement was one of the great triumphs of LEP.
             </p>
-            <p style="background:#fff7ed; border-left:4px solid #f97316; padding:10px 14px; border-radius:4px;">
+            <p style="background: #1a314a; border-left:4px solid #f97316; padding:10px 14px; border-radius:4px;">
               <strong>Subtlety:</strong> The LEP count constrains active neutrinos with \( m_\nu < 45.6\,\text{GeV} \).
               Sterile neutrinos — which are gauge singlets with no SM couplings — would not contribute to
               \( \Gamma_{\rm inv} \) regardless of their mass, and are therefore completely unconstrained
@@ -498,7 +498,7 @@ export const neutrinoPhysics = {
               definitively, by the OPERA experiment (CERN to Gran Sasso, 730 km baseline) which
               detected individual \( \tau \) lepton events from \( \nu_\mu \to \nu_\tau \) appearance.
             </p>
-            <p style="background:#f0fdf4; border-left:4px solid #22c55e; padding:10px 14px; border-radius:4px;">
+            <p style="background: #1a314a; border-left:4px solid #22c55e; padding:10px 14px; border-radius:4px;">
               <strong>Ruling out \( \nu_\mu \leftrightarrow \nu_s \) (sterile) via matter effects:</strong>
               For \( \nu_\mu \leftrightarrow \nu_\tau \) oscillations, both flavours experience the same
               neutral current potential \( V_{NC} = -G_F N_n/\sqrt{2} \), so matter effects
@@ -1230,7 +1230,7 @@ export const neutrinoPhysics = {
             \[
             \delta = 197^{+27}_{-24}{}^\circ \quad (\text{NO}, \text{ preliminary indication of CP violation})
             \]
-            <p style="background:#f0f7ff; border-left:4px solid #3b82f6; padding:10px 14px; border-radius:4px;">
+            <p style="background: #1a314a; border-left:4px solid #3b82f6; padding:10px 14px; border-radius:4px;">
               <strong>Open questions:</strong> (1) Is the ordering Normal or Inverted? (2) Is \( \theta_{23} \) exactly \( 45° \) or does it deviate (first or second octant)? (3) What is the CP-violating phase \( \delta \)? Is maximal CP violation (\( \delta = -90° \)) realised? (4) What are the absolute neutrino masses? These are the four central questions driving the next generation of experiments.
             </p>
           `,
@@ -2062,7 +2062,7 @@ export const neutrinoPhysics = {
               particularly for the Southern sky where the Galactic Centre is accessible.
               Also studying Earth-crossing neutrinos for atmospheric oscillation physics with ORCA.
             </p>
-            <p style="background:#fdf4ff; border-left:4px solid #a855f7; padding:10px 14px; border-radius:4px;">
+            <p style="background:  #1a314a; border-left:4px solid #a855f7; padding:10px 14px; border-radius:4px;">
               <strong>The big picture:</strong> Neutrino physics stands at an extraordinary juncture.
               The discovery of oscillations opened a window beyond the Standard Model. Now, the field
               faces questions that span from laboratory nuclear physics to the origin of the universe:
