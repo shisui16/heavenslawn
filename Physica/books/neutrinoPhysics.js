@@ -44,11 +44,11 @@ export const neutrinoPhysics = {
             <h2>1.1 The Beta Decay Puzzle and Pauli's Desperate Remedy</h2>
             <p>
               In nuclear beta decay, a parent nucleus transitions to a daughter nucleus with the simultaneous
-              emission of an electron: \\( (A,Z) \to (A,Z+1) + e^- \\). In the 1910s-1920s, the expectation
+              emission of an electron: $$\\( (A,Z) \\to (A,Z+1) + e^- \\)$$. In the 1910s-1920s, the expectation
               was that this was a two-body process with the electron emerging at a uniquely fixed energy
-              \\( E_e = (M_i^2 - M_f^2 + m_e^2)/(2M_i) \\). Instead, experiments by Chadwick (1914) and
+              $$\\( E_e = (M_i^2 - M_f^2 + m_e^2)/(2M_i) \\)$$. Instead, experiments by Chadwick (1914) and
               later Ellis and Wooster (1927) showed that the emitted electron carries a <em>continuous</em>
-              energy spectrum ranging from near zero up to some endpoint \\( E_0 \\). The missing energy appeared
+              energy spectrum ranging from near zero up to some endpoint $$\\( E_0 \\)$$. The missing energy appeared
               to violate conservation of energy and momentum — so much so that Niels Bohr publicly contemplated
               abandoning these laws in the nucleus.
             </p>
@@ -61,7 +61,7 @@ export const neutrinoPhysics = {
               continuous spectrum is predicted.
             </p>
             <p>
-              Treating beta decay as a three-body process \( n \to p + e^- + \bar{\nu}_e \), the
+              Treating beta decay as a three-body process $$\\( n \to p + e^- + \bar{\nu}_e \\)$$, the
               differential decay rate takes the form (derived from Fermi's Golden Rule):
             </p>
             \[
