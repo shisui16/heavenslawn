@@ -24,6 +24,31 @@ const state = {
   errItems:     [],   // items answered wrongly this session
 };
 
+// ─── Global persistence (resume across reloads) ──────────────────────────
+const GLOBAL_STORAGE_KEY = "physica_global_v2";
+
+function saveGlobalState() {
+  const toStore = {
+    bookIndex: state.bookIndex,
+    chapterIndex: state.chapterIndex,
+    itemIndex: state.itemIndex,
+    score: state.score,
+    streak: state.streak,
+  };
+  localStorage.setItem(GLOBAL_STORAGE_KEY, JSON.stringify(toStore));
+}
+
+function loadGlobalState() {
+  const raw = localStorage.getItem(GLOBAL_STORAGE_KEY);
+  if (!raw) return null;
+  try {
+    return JSON.parse(raw);
+  } catch (e) {
+    console.warn("Failed to parse global state", e);
+    return null;
+  }
+}
+
 // ─── Derived helpers ──────────────────────────────────────────────────────
 const currentBook    = () => BOOKS[state.bookIndex];
 const currentChapter = () => currentBook().chapters[state.chapterIndex];
@@ -124,8 +149,9 @@ DOM.bookSelect.addEventListener("change", e => {
   state.bookIndex    = parseInt(e.target.value);
   state.chapterIndex = 0;
   resetSession();
-  buildChapterNav();
+  buildChapterNav();        // rebuilds nav, resets saved positions display
   renderCurrent();
+  saveGlobalState();        // store the new book selection
 });
 
 // ─── Build chapter nav list ───────────────────────────────────────────────
@@ -169,13 +195,18 @@ function switchChapter(idx) {
   updateChapterNav();
   renderCurrent();
   if (window.innerWidth <= 820) closeSidebar();
+  saveGlobalState();
 }
+
 
 // ─── LocalStorage ─────────────────────────────────────────────────────────
 const storageKey = (bIdx, cIdx) => `physica2_b${bIdx}_c${cIdx}_pos`;
 
 function saveProgress() {
+  // Save per‑chapter position (for the badge)
   localStorage.setItem(storageKey(state.bookIndex, state.chapterIndex), state.itemIndex);
+  // Save global session state (book, chapter, item, score, streak)
+  saveGlobalState();
 }
 
 function loadProgress(bIdx, cIdx) {
@@ -193,7 +224,9 @@ function resetSession() {
   state.reviewMode = false;
   DOM.navStudy.classList.add("active");
   DOM.navReview.classList.remove("active");
+  saveGlobalState();   // persist the reset (score=0, streak=0)
 }
+
 
 // ─── KaTeX ────────────────────────────────────────────────────────────────
 function renderMath(el) {
@@ -553,9 +586,11 @@ DOM.restartBtn.addEventListener("click", () => {
   renderCurrent();
 });
 
+
 DOM.nextChapterBtn.addEventListener("click", () => {
   DOM.completion.classList.add("hidden");
   switchChapter(state.chapterIndex + 1);
+  saveGlobalState();   
 });
 
 // ─── Mode buttons ─────────────────────────────────────────────────────────
@@ -585,8 +620,37 @@ DOM.navReview.addEventListener("click", () => {
 function init() {
   buildBookSelect();
   buildChapterNav();
-  state.itemIndex = loadProgress(state.bookIndex, state.chapterIndex);
+
+  // Try to restore global state
+  const saved = loadGlobalState();
+  if (saved) {
+    // Validate indices (they might be out of range after adding/removing books)
+    const maxBook = BOOKS.length - 1;
+    const bookIdx = Math.min(saved.bookIndex, maxBook);
+    const maxChap = BOOKS[bookIdx].chapters.length - 1;
+    const chapIdx = Math.min(saved.chapterIndex, maxChap);
+    const maxItem = BOOKS[bookIdx].chapters[chapIdx].content.length - 1;
+    const itemIdx = Math.min(saved.itemIndex, maxItem);
+
+    state.bookIndex = bookIdx;
+    state.chapterIndex = chapIdx;
+    state.itemIndex = itemIdx;
+    state.score = saved.score;
+    state.streak = saved.streak;
+  } else {
+    // Default: first book, first chapter, first item
+    state.bookIndex = 0;
+    state.chapterIndex = 0;
+    state.itemIndex = loadProgress(state.bookIndex, state.chapterIndex);
+    state.score = 0;
+    state.streak = 0;
+  }
+
+  // Ensure the book dropdown and chapter nav reflect the restored indices
+  DOM.bookSelect.value = state.bookIndex;
+  updateChapterNav();
   renderCurrent();
+  saveGlobalState();   // save the restored state (or default)
 }
 
 init();
