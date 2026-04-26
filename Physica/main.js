@@ -84,15 +84,27 @@ function closeSidebar() {
   DOM.overlay.classList.remove("on");
 }
 
-DOM.menuBtn.addEventListener("click", () => {
+function handleMenuToggle(e) {
+  e.preventDefault();
   const isMobile = window.innerWidth <= 820;
   if (isMobile) {
-    DOM.sidebar.classList.contains("open") ? closeSidebar() : openSidebar();
+    if (DOM.sidebar.classList.contains("open")) {
+      closeSidebar();
+    } else {
+      openSidebar();
+    }
   } else {
     DOM.sidebar.classList.toggle("hidden-desktop");
     DOM.main.classList.toggle("wide");
   }
-});
+}
+
+// Remove any existing listener, then attach both
+DOM.menuBtn.removeEventListener("click", handleMenuToggle);
+DOM.menuBtn.removeEventListener("touchstart", handleMenuToggle);
+DOM.menuBtn.addEventListener("click", handleMenuToggle);
+DOM.menuBtn.addEventListener("touchstart", handleMenuToggle);
+
 DOM.sidebarClose.addEventListener("click", closeSidebar);
 DOM.overlay.addEventListener("click", closeSidebar);
 
