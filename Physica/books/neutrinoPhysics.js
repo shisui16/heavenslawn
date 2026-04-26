@@ -482,8 +482,8 @@ export const neutrinoPhysics = {
             <p>
               Solar neutrinos were first detected through radiochemical reactions:
               <ul>
-                <li><strong>Chlorine</strong> (Homestake, Davis 1970s): ${x}^{37}\\text{Cl} + \\nu_e \\to {}^{37}\\text{Ar} + e^-$ (threshold 814 keV)</li>
-                <li><strong>Gallium</strong> (SAGE, GALLEX): ${x}^{71}\\text{Ga} + \\nu_e \\to {}^{71}\\text{Ge} + e^-$ (threshold 233 keV)</li>
+                <li><strong>Chlorine</strong> (Homestake, Davis 1970s): ${}^{37}\\text{Cl} + \\nu_e \\to {}^{37}\\text{Ar} + e^-$ (threshold 814 keV)</li>
+                <li><strong>Gallium</strong> (SAGE, GALLEX): ${}^{71}\\text{Ga} + \\nu_e \\to {}^{71}\\text{Ge} + e^-$ (threshold 233 keV)</li>
                 <li><strong>Water Cherenkov</strong> (Kamiokande, SK): $\\nu_e + e^- \\to \\nu_e + e^-$ (threshold $\\sim 5\\,\\text{MeV}$)</li>
               </ul>
               All experiments consistently found <strong>only about half</strong> of the expected
@@ -1164,7 +1164,7 @@ export const neutrinoPhysics = {
             <p>
               <strong>Solar parameters ($\\Delta m^2_{21}$, $\\theta_{12}$):</strong>
               <ul>
-                <li>SuperKamiokande (ongoing): real-time detection of ${x}^8\\text{B}$ solar neutrinos via $\\nu e^-$ elastic scattering.</li>
+                <li>SuperKamiokande (ongoing): real-time detection of ${}^8\\text{B}$ solar neutrinos via $\\nu e^-$ elastic scattering.</li>
                 <li>KamLAND: confirmed LMA with reactor $\\bar\\nu_e$; best precision on $\\Delta m^2_{21}$.</li>
                 <li>JUNO (China, upcoming): will measure $\\theta_{12}$ and $\\Delta m^2_{21}$ with percent-level precision at $L \\sim 53\\,\\text{km}$.</li>
               </ul>
@@ -1212,8 +1212,8 @@ export const neutrinoPhysics = {
               If the inverted hierarchy is correct and neutrinos are Majorana, $\\langle m_{ee}\\rangle \\gtrsim 0.02\\,\\text{eV}$.
               Next-generation $0\\nu\\beta\\beta$ experiments aim for this sensitivity:
               <ul>
-                <li>KamLAND-Zen (${x}^{136}\\text{Xe}$, Japan): $\\langle m_{ee}\\rangle < 61$–$165\\,\\text{meV}$ (2022).</li>
-                <li>GERDA, MAJORANA (${x}^{76}\\text{Ge}$): $\\langle m_{ee}\\rangle < 79$–$180\\,\\text{meV}$.</li>
+                <li>KamLAND-Zen (${}^{136}\\text{Xe}$, Japan): $\\langle m_{ee}\\rangle < 61$–$165\\,\\text{meV}$ (2022).</li>
+                <li>GERDA, MAJORANA (${}^{76}\\text{Ge}$): $\\langle m_{ee}\\rangle < 79$–$180\\,\\text{meV}$.</li>
                 <li>nEXO, LEGEND-1000, CUPID: tonne-scale experiments targeting $\\langle m_{ee}\\rangle \\sim 10$–$20\\,\\text{meV}$.</li>
               </ul>
             </p>
