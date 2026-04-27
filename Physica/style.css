@@ -524,3 +524,233 @@ body {
   margin-left: 0;
   transition: margin-left 0.28s var(--ease);
 }
+/* ════════════════════════════════════════════════════════════════════════════
+   PROOF TYPES  — added styles (do not edit existing rules above)
+   ════════════════════════════════════════════════════════════════════════════ */
+
+/* ── Shared: proof statement (question text repurposed) ─────────────────── */
+.proof-statement {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--text);
+  border-left: 3px solid var(--cyan-dim);
+  padding-left: 14px;
+  margin-bottom: 22px;
+}
+
+/* ── proof_guided ────────────────────────────────────────────────────────── */
+.proof-guided-wrap {
+  margin-bottom: 18px;
+}
+
+.proof-step-header {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.proof-step-prompt {
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--text);
+  background: var(--surf2);
+  border: 1px solid var(--bdr);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 12px;
+}
+
+.proof-step-input {
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.proof-step-preview {
+  min-height: 30px;
+  color: var(--cyan);
+  font-size: 16px;
+  padding: 4px 0;
+}
+
+.proof-step-counter {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-left: 8px;
+}
+
+.proof-check-btn {
+  margin-right: auto;
+}
+
+/* ── proof_free ──────────────────────────────────────────────────────────── */
+.proof-free-wrap {
+  margin-bottom: 18px;
+}
+
+.proof-free-textarea {
+  width: 100%;
+  resize: vertical;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  line-height: 1.65;
+  min-height: 160px;
+  margin-bottom: 10px;
+}
+
+.proof-free-preview {
+  background: var(--surf2);
+  border: 1px solid var(--bdr);
+  border-radius: 8px;
+  padding: 14px 18px;
+  font-size: 14.5px;
+  line-height: 1.75;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+/* Model solution reveal */
+.proof-model-solution {
+  margin-bottom: 16px;
+}
+
+.proof-sol-toggle {
+  background: none;
+  border: 1px solid var(--bdr2);
+  color: var(--cyan);
+  border-radius: 7px;
+  padding: 7px 14px;
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background .13s, border-color .13s;
+  width: 100%;
+  text-align: left;
+}
+.proof-sol-toggle:hover { background: var(--cyan-glow); border-color: var(--cyan-dim); }
+
+.proof-sol-body {
+  background: var(--surf2);
+  border: 1px solid var(--bdr);
+  border-top: none;
+  border-radius: 0 0 7px 7px;
+  padding: 16px 18px;
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--text);
+}
+
+/* Checklist */
+.proof-checklist {
+  background: var(--surf2);
+  border: 1px solid var(--bdr);
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin-bottom: 18px;
+}
+
+.proof-checklist-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.proof-check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 6px 0;
+  cursor: pointer;
+  border-bottom: 1px solid var(--bdr);
+  font-size: 13.5px;
+  color: var(--text);
+  line-height: 1.5;
+}
+.proof-check-item:last-child { border-bottom: none; }
+.proof-check-item input[type="checkbox"] {
+  accent-color: var(--cyan);
+  width: 15px; height: 15px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  cursor: pointer;
+}
+.proof-check-item span { flex: 1; }
+
+/* ── proof_debug ─────────────────────────────────────────────────────────── */
+.proof-debug-wrap {
+  margin-bottom: 18px;
+}
+
+.proof-block {
+  background: var(--surf2);
+  border: 1px solid var(--bdr);
+  border-radius: 8px;
+  padding: 4px 0;
+  margin-bottom: 14px;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.proof-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background .13s, border-color .13s;
+  border: 1px solid transparent;
+  margin: 2px 4px;
+}
+.proof-line:hover { background: var(--surf3); }
+.proof-line.proof-line-selected {
+  background: var(--red-dim);
+  border-color: var(--red-bdr);
+}
+
+.proof-line-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  padding-top: 1px;
+  width: 20px;
+  text-align: right;
+}
+.proof-line.proof-line-selected .proof-line-num { color: var(--red); }
+
+.proof-line-text { flex: 1; color: var(--text); }
+.proof-line.proof-line-selected .proof-line-text { color: var(--red); }
+
+.proof-line-block {
+  padding: 12px 16px;
+  color: var(--text);
+}
+
+.proof-debug-hint {
+  margin-bottom: 10px;
+}
+
+.proof-debug-selected {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--amber);
+  margin-bottom: 10px;
+  padding: 5px 10px;
+  background: var(--gold-dim);
+  border-radius: 5px;
+  border: 1px solid var(--gold-dim);
+}
+
+/* feedback neutral/info tint (used for inline proof messages) */
+.feedback.info {
+  background: var(--cyan-glow);
+  border-color: var(--cyan-dim);
+}

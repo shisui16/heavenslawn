@@ -49,7 +49,7 @@ export const neutrinoPhysics = {
               $ E_e = (M_i^2 - M_f^2 + m_e^2)/(2M_i) $. Instead, experiments by Chadwick (1914) and
               later Ellis and Wooster (1927) showed that the emitted electron carries a <em>continuous</em>
               energy spectrum ranging from near zero up to some endpoint $ E_0 $. The missing energy appeared
-              to violate conservation of energy and momentum — so much so that Niels Bohr publicly contemplated
+              to violate conservation of energy and momentum - so much so that Niels Bohr publicly contemplated
               abandoning these laws in the nucleus.
             </p>
             <p>
@@ -230,7 +230,7 @@ export const neutrinoPhysics = {
         },
         {
           type: "mcq",
-          question: "The electron energy spectrum in nuclear beta decay is continuous. In the two-body picture  \  $ n  \ \\to p + e^-  \  $, kinematics predicts a single fixed electron energy. Which one of the following correctly identifies the primary conservation law that is  \ \\emph{apparently} violated if one insists on a two-body decay but observes a continuous spectrum?",
+          question: "The electron energy spectrum in nuclear beta decay is continuous. In the two-body picture  \  $ n  \ \\to p + e^-  \  $, kinematics predicts a single fixed electron energy. Which one of the following correctly identifies the primary conservation law that is  \\emph{apparently} violated if one insists on a two-body decay but observes a continuous spectrum?",
           options: [
             "Conservation of electric charge — the spectrum implies variable charge in the final state",
             "Conservation of angular momentum — a spin-1/2 nucleus cannot decay to two spin-1/2 products",
