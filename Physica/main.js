@@ -674,8 +674,29 @@ function proofMatchExpr(userRaw, expectedRaw) {
   } catch (_) { return false; }
 }
 
+function clearProofUI() {
+  // Remove all step containers (guided)
+  DOM.questionCard.querySelectorAll('.proof-guided-wrap').forEach(el => el.remove());
+  // Remove all free‑proof textarea / preview / solutions
+  DOM.questionCard.querySelectorAll('.proof-free-wrap, .proof-model-solution, .proof-checklist').forEach(el => el.remove());
+  // Remove all debug‑proof blocks
+  DOM.questionCard.querySelectorAll('.proof-debug-wrap').forEach(el => el.remove());
+  
+  // Remove custom buttons we added to the actions row  
+  const actions = DOM.questionCard.querySelector('.card-actions');
+  if (actions) {
+    actions.querySelectorAll('.proof-check-btn').forEach(el => el.remove());
+    // For free proof: submit button, preview toggle, done button
+    const text = ['Submit Proof', 'Preview LaTeX', 'Hide Preview', 'Done →', 'Submit Analysis'];
+    actions.querySelectorAll('button').forEach(btn => {
+      if (text.includes(btn.textContent)) btn.remove();
+    });
+  }
+}
+
 // ── proof_guided ────────────────────────────────────────────────────────────
 function renderProofGuided(item) {
+   clearProofUI();
   const steps  = item.steps || [];
   let   stepIdx = 0;
 
@@ -777,6 +798,7 @@ function renderProofGuided(item) {
 
 // ── proof_free ──────────────────────────────────────────────────────────────
 function renderProofFree(item) {
+   clearProofUI();
   mountProofCard(
     item,
     "Free Proof",
@@ -905,6 +927,7 @@ function renderProofFree(item) {
 
 // ── proof_debug ─────────────────────────────────────────────────────────────
 function renderProofDebug(item) {
+   clearProofUI();
   mountProofCard(
     item,
     "Debug Proof",
