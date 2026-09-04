@@ -13,7 +13,7 @@ import { frenchAcquisitionCourse } from "./books/frenchAcquisitionCourse.js";
 import { frenchForPhysicists } from "./books/frenchForPhysicists.js";
 // ─── Book Registry ────────────────────────────────────────────────────────
 // To add a new book: import it above, then push it here.
-const BOOKS = [analyticalMechanics, calculus, electromagnetism, topologyCondensedMatter, neutrinoPhysics, proofMath, frenchAcquisitionCourse];
+const BOOKS = [analyticalMechanics, calculus, electromagnetism, topologyCondensedMatter, neutrinoPhysics, proofMath, frenchAcquisitionCourse, frenchForPhysicists];
 
 // ─── State ────────────────────────────────────────────────────────────────
 const state = {
