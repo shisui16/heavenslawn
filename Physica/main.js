@@ -10,7 +10,7 @@ import { topologyCondensedMatter  } from "./books/topologyCondensedMatter.js";
 import { neutrinoPhysics          } from "./books/neutrinoPhysics.js";
 import { proofMath                } from "./books/proofMath.js";
 import { frenchAcquisitionCourse } from "./books/frenchAcquisitionCourse.js";
-
+import { frenchForPhysicists } from "./books/frenchForPhysicists.js";
 // ─── Book Registry ────────────────────────────────────────────────────────
 // To add a new book: import it above, then push it here.
 const BOOKS = [analyticalMechanics, calculus, electromagnetism, topologyCondensedMatter, neutrinoPhysics, proofMath, frenchAcquisitionCourse];
