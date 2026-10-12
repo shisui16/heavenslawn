@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Knowledge map</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#f3f5f8;--panel:#ffffff;--ink:#16202c;--mute:#5d6b7c;--line:#d5dbe3;--accent:#1d6fd6;--edge:#8a97a8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1420;--panel:#161f2e;--ink:#e6ecf4;--mute:#93a1b4;--line:#2a374a;--accent:#5aa2ff;--edge:#5a6b82}}
+:root[data-theme="dark"]{--bg:#0d1420;--panel:#161f2e;--ink:#e6ecf4;--mute:#93a1b4;--line:#2a374a;--accent:#5aa2ff;--edge:#5a6b82}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "Iowan Old Style",Georgia,serif;overflow:hidden}
+*{box-sizing:border-box}
+#g{position:absolute;inset:0}
+#bar{position:absolute;top:env(safe-area-inset-top,0px);left:0;right:0;display:flex;gap:8px;padding:10px;flex-wrap:wrap;z-index:5}
+#bar input[type=search]{flex:1 1 180px;min-width:0;padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--ink);font:inherit}
+button,label.btn{padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--ink);font:14px system-ui,sans-serif;cursor:pointer}
+button:hover,label.btn:hover{border-color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#side{position:absolute;top:0;right:0;bottom:0;width:min(420px,100%);background:var(--panel);border-left:1px solid var(--line);padding:70px 18px 24px;overflow:auto;z-index:4;transform:translateX(100%);transition:transform .2s}
+#side.open{transform:none}
+@media (max-width:640px){#side{top:45%;width:100%;border-left:0;border-top:1px solid var(--line);padding-top:16px;transform:translateY(100%)}#side.open{transform:none}}
+#side h2{margin:0 0 4px;font-size:22px}
+.meta{color:var(--mute);font:13px system-ui,sans-serif;margin-bottom:10px}
+.tag{display:inline-block;padding:1px 8px;border:1px solid var(--line);border-radius:10px;margin-right:4px}
+a.wl{color:var(--accent);cursor:pointer;text-decoration:underline dotted}
+h4{font:600 13px system-ui,sans-serif;color:var(--mute);margin:18px 0 6px}
+.res a,.bl a{display:block;padding:3px 0;color:var(--accent);cursor:pointer}
+#legend{position:absolute;left:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:3;font:12px system-ui,sans-serif;color:var(--mute);max-width:60%}
+#legend span{display:inline-flex;align-items:center;margin-right:10px;cursor:pointer}
+#legend i{width:10px;height:10px;border-radius:50%;margin-right:4px}
+#empty{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:30px;color:var(--mute);z-index:2;pointer-events:none}
+code{background:var(--bg);padding:1px 4px;border-radius:4px}
+pre{background:var(--bg);padding:8px;overflow:auto}
+math{font-size:1.1em}
+</style>
+</head>
+<body>
+<div id="g"></div>
+<div id="empty"><div>Load your Markdown notes, or try the sample.<br>Every <b>[[link]]</b> becomes a connection.</div></div>
+<div id="bar">
+<input type="search" id="q" placeholder="Search notes" aria-label="Search notes">
+<label class="btn">Load notes<input type="file" id="f" multiple accept=".md,.markdown,.txt" hidden></label>
+<button id="demo">Sample</button>
+<button id="clr">Clear</button>
+</div>
+<div id="legend"></div>
+<aside id="side" aria-live="polite"></aside>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three-spritetext@1.8.2/dist/three-spritetext.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/3d-force-graph@1.73.4/dist/3d-force-graph.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let notes={},G=null,data={nodes:[],links:[]},back={},matches=null,hidden=new Set(),colors={};
+const PAL=['#4f9dff','#ff7a59','#3ecf8e','#f5c542','#c084fc','#2dd4d4','#ff6fa8','#a3b86c'];
+const TYPED={'depends-on':'#ff7a59','generalizes':'#3ecf8e','example-of':'#f5c542','contradicts':'#ff4d6d'};
+
+function save(){try{localStorage.setItem('kmap.notes',JSON.stringify(notes))}catch(e){}}
+function load(){try{const s=localStorage.getItem('kmap.notes');if(s)notes=JSON.parse(s)}catch(e){}}
+
+function parse(name,text,folder){
+  let fm={},body=text;
+  const m=text.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?/);
+  if(m){body=text.slice(m[0].length);
+    m[1].split(/\r?\n/).forEach(l=>{const k=l.match(/^([\w-]+):\s*(.*)$/);if(k)fm[k[1].toLowerCase()]=k[2].replace(/^\[|\]$/g,'').trim()})}
+  notes[name]={title:name,body,fm,folder:folder||''};
+}
+const WL=/\[\[([^\]|#]+)(?:[#|][^\]]*)?\]\]/g;
+function build(){
+  const N={},E={};back={};
+  const node=t=>N[t]||(N[t]={id:t,deg:0,group:'unwritten'});
+  for(const t in notes){const n=node(t);n.group=notes[t].fm.course||notes[t].folder||'notes';n.real=true}
+  const edge=(s,t,type)=>{s=s.trim();t=t.trim();if(!t||s===t)return;node(t);const k=s+'\u0001'+t+'\u0001'+type;
+    if(!E[k]){E[k]={source:s,target:t,type};N[s].deg++;N[t].deg++;(back[t]=back[t]||new Set()).add(s)}};
+  for(const t in notes){const n=notes[t];
+    for(const k in n.fm){let x;const r=/\[\[([^\]|#]+)(?:[#|][^\]]*)?\]\]/g;while(x=r.exec(n.fm[k]))edge(t,x[1],k)}
+    let x;WL.lastIndex=0;while(x=WL.exec(n.body))edge(t,x[1],'link')}
+  data={nodes:Object.values(N),links:Object.values(E)};
+  colors={};let i=0;data.nodes.forEach(n=>{if(!colors[n.group])colors[n.group]=n.group==='unwritten'?'#7b8798':PAL[i++%PAL.length]});
+  draw();
+}
+function nodeCol(n){if(matches&&!matches.has(n.id))return '#3a4658';return colors[n.group]}
+function draw(){
+  $('#empty').style.display=data.nodes.length?'none':'flex';
+  const vis={nodes:data.nodes.filter(n=>!hidden.has(n.group)),links:[]};
+  const ids=new Set(vis.nodes.map(n=>n.id));
+  vis.links=data.links.filter(l=>ids.has(l.source.id||l.source)&&ids.has(l.target.id||l.target)).map(l=>({source:l.source.id||l.source,target:l.target.id||l.target,type:l.type}));
+  if(!G){
+    G=ForceGraph3D()($('#g')).backgroundColor(getComputedStyle(document.documentElement).getPropertyValue('--bg').trim()||'#0d1420')
+     .nodeVal(n=>1+n.deg*1.5).nodeColor(nodeCol).nodeOpacity(.9).nodeLabel(n=>esc(n.id))
+     .nodeThreeObjectExtend(true).nodeThreeObject(n=>{const s=new SpriteText(n.id.length>26?n.id.slice(0,25)+'…':n.id,3.2,'#c9d4e4');s.position.y=7+Math.sqrt(n.deg)*2;s.fontFace='system-ui,sans-serif';return s})
+     .linkColor(l=>TYPED[l.type]||'#6b7b92').linkOpacity(.55).linkWidth(l=>TYPED[l.type]?1.2:.4)
+     .linkDirectionalArrowLength(l=>TYPED[l.type]?4:0).linkDirectionalArrowRelPos(1)
+     .onNodeClick(n=>show(n.id));
+    fit();addEventListener('resize',fit);
+  }
+  G.graphData(vis);
+  const lg=$('#legend');lg.innerHTML='';
+  Object.keys(colors).forEach(g=>{const s=document.createElement('span');s.style.opacity=hidden.has(g)?.4:1;
+    s.innerHTML='<i style="background:'+colors[g]+'"></i>'+esc(g);
+    s.onclick=()=>{hidden.has(g)?hidden.delete(g):hidden.add(g);draw()};lg.appendChild(s)});
+}
+function fit(){G&&G.width(innerWidth).height(innerHeight)}
+
+/* tiny markdown renderer, math via KaTeX (MathML, no CSS needed) */
+function md(t){
+  const M=[];
+  t=t.replace(/\$\$([\s\S]+?)\$\$|\$([^\n$]+?)\$/g,(a,b,c)=>{M.push([!!b,(b||c).trim()]);return '\u0000'+(M.length-1)+'\u0000'});
+  const lines=esc(t).split(/\r?\n/);let h='',list=false,code=false;
+  const inl=s=>s.replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>').replace(/(^|[\s(])\*([^*\n]+)\*/g,'$1<i>$1$2</i>'.replace('$1<i>$1','$1<i>'))
+   .replace(/\[\[([^\]|#]+)(?:[#|]([^\]]*))?\]\]/g,(a,n,al)=>'<a class="wl" data-n="'+encodeURIComponent(n.trim())+'">'+(al||n)+'</a>');
+  for(const l of lines){
+    if(/^```/.test(l)){h+=code?'</pre>':'<pre>';code=!code;continue}
+    if(code){h+=l+'\n';continue}
+    const li=l.match(/^\s*[-*]\s+(.*)/);
+    if(li){if(!list){h+='<ul>';list=true}h+='<li>'+inl(li[1])+'</li>';continue}
+    if(list){h+='</ul>';list=false}
+    const hd=l.match(/^(#{1,4})\s+(.*)/);
+    if(hd)h+='<h4 style="font-size:'+(18-hd[1].length*1.5)+'px;color:var(--ink)">'+inl(hd[2])+'</h4>';
+    else if(l.trim())h+='<p>'+inl(l)+'</p>';
+  }
+  if(list)h+='</ul>';if(code)h+='</pre>';
+  return h.replace(/\u0000(\d+)\u0000/g,(a,i)=>{const[d,x]=M[i];
+    try{return katex.renderToString(x,{output:'mathml',displayMode:d,throwOnError:false})}catch(e){return esc(x)}});
+}
+function show(id){
+  const n=notes[id],s=$('#side');
+  let h='<button style="float:right" id="x" aria-label="Close">Close</button><h2>'+esc(id)+'</h2>';
+  if(n){const f=n.fm;h+='<div class="meta">'+Object.keys(f).filter(k=>!/\[\[/.test(f[k])).map(k=>'<span class="tag">'+esc(k)+': '+esc(f[k])+'</span>').join('')+'</div>';
+    const typed=Object.keys(f).filter(k=>/\[\[/.test(f[k])).map(k=>'<div class="meta">'+esc(k)+': '+md(f[k])+'</div>').join('');
+    h+=typed+md(n.body)}
+  else h+='<p class="meta">No note with this name yet. It is linked from other notes.</p>';
+  const b=[...(back[id]||[])];
+  h+='<h4>Backlinks ('+b.length+')</h4><div class="bl">'+(b.map(x=>'<a class="wl" data-n="'+encodeURIComponent(x)+'">'+esc(x)+'</a>').join('')||'<span class="meta">None yet</span>')+'</div>';
+  s.innerHTML=h;s.classList.add('open');s.scrollTop=0;
+  $('#x').onclick=()=>s.classList.remove('open');
+  const nd=data.nodes.find(x=>x.id===id);
+  if(nd&&nd.x!==undefined){const d=70+Math.hypot(nd.x,nd.y,nd.z);G.cameraPosition({x:nd.x*(1+60/d),y:nd.y*(1+60/d),z:nd.z*(1+60/d)},nd,800)}
+}
+$('#side').addEventListener('click',e=>{const a=e.target.closest('a[data-n]');if(a)show(decodeURIComponent(a.dataset.n))});
+
+/* search: title weighted higher than body */
+$('#q').addEventListener('input',e=>{
+  const q=e.target.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
+  if(!q.length){matches=null;G&&G.nodeColor(nodeCol);return}
+  const sc=[];
+  for(const t in notes){const hay=notes[t].body.toLowerCase(),ti=t.toLowerCase();let s=0,ok=true;
+    for(const w of q){const a=ti.includes(w),b=hay.includes(w);if(!a&&!b){ok=false;break}s+=(a?5:0)+(b?1:0)}
+    if(ok)sc.push([t,s])}
+  sc.sort((a,b)=>b[1]-a[1]);matches=new Set(sc.map(x=>x[0]));G&&G.nodeColor(nodeCol);
+  const s=$('#side');s.innerHTML='<button style="float:right" id="x">Close</button><h2>'+sc.length+' result'+(sc.length===1?'':'s')+'</h2><div class="res">'+
+    sc.slice(0,40).map(x=>'<a data-n="'+encodeURIComponent(x[0])+'">'+esc(x[0])+'</a>').join('')+'</div>';
+  s.classList.add('open');$('#x').onclick=()=>s.classList.remove('open');
+});
+
+$('#f').addEventListener('change',async e=>{
+  for(const f of e.target.files){const nm=f.name.replace(/\.(md|markdown|txt)$/i,'');
+    const p=(f.webkitRelativePath||'').split('/');parse(nm,await f.text(),p.length>2?p[p.length-2]:'')}
+  save();build();e.target.value='';
+});
+$('#clr').onclick=()=>{if(confirm('Remove all notes from this browser?')){notes={};save();build();$('#side').classList.remove('open')}};
+$('#demo').onclick=()=>{
+  parse('Newtonian mechanics','---\ncourse: mechanics\n---\nForces determine motion: $F = ma$. See [[Lagrangian mechanics]] for a reformulation.',0);
+  parse('Lagrangian mechanics','---\ncourse: mechanics\ndepends-on: [[Newtonian mechanics]], [[Principle of least action]]\n---\nThe Lagrangian is $L = T - V$. The Euler-Lagrange equation:\n$$\\frac{d}{dt}\\frac{\\partial L}{\\partial \\dot q} = \\frac{\\partial L}{\\partial q}$$\n- generalizes [[Newtonian mechanics]]\n- used in [[Noether\'s theorem]]',0);
+  parse('Principle of least action','---\ncourse: mechanics\n---\nThe path taken makes the action $S=\\int L\\,dt$ stationary.',0);
+  parse('Noether\'s theorem','---\ncourse: mechanics\ndepends-on: [[Lagrangian mechanics]], [[Symmetry]]\n---\nEvery continuous **symmetry** of the action gives a conserved quantity.',0);
+  parse('Symmetry','---\ncourse: algebra\n---\nA transformation that leaves a system unchanged. Studied via [[Group theory]].',0);
+  parse('Group theory','---\ncourse: algebra\ngeneralizes: [[Symmetry]]\n---\nGroups formalize composition of symmetries.',0);
+  save();build();
+};
+load();build();
+</script>
+</body>
+</html>
